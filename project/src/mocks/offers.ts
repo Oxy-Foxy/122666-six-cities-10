@@ -17,7 +17,7 @@ const offers: Offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 10
+        zoom: 12
       },
       name: 'Amsterdam'
     },
@@ -47,7 +47,7 @@ const offers: Offers = [
     location: {
       latitude: 52.3600,
       longitude: 4.8852,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -65,7 +65,7 @@ const offers: Offers = [
       location: {
         latitude: 50.9375,
         longitude: 6.9603,
-        zoom: 10
+        zoom: 12
       },
       name: 'Cologne'
     },
@@ -81,7 +81,7 @@ const offers: Offers = [
     location: {
       latitude: 50.9413,
       longitude: 6.9583,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -99,7 +99,7 @@ const offers: Offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 10
+        zoom: 12
       },
       name: 'Amsterdam'
     },
@@ -115,7 +115,7 @@ const offers: Offers = [
     location: {
       latitude: 52.3584,
       longitude: 4.8811,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -133,7 +133,7 @@ const offers: Offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 10
+        zoom: 12
       },
       name: 'Amsterdam'
     },
@@ -149,7 +149,7 @@ const offers: Offers = [
     location: {
       latitude: 52.3752,
       longitude: 4.8840,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -167,7 +167,7 @@ const offers: Offers = [
       location: {
         latitude: 52.3676,
         longitude: 4.9041,
-        zoom: 10
+        zoom: 12
       },
       name: 'Amsterdam'
     },
@@ -183,7 +183,7 @@ const offers: Offers = [
     location: {
       latitude: 52.3580,
       longitude: 4.8686,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -201,7 +201,7 @@ const offers: Offers = [
       location: {
         latitude: 48.864716,
         longitude: 2.349014,
-        zoom: 10
+        zoom: 12
       },
       name: 'Paris'
     },
@@ -217,7 +217,7 @@ const offers: Offers = [
     location: {
       latitude: 48.858093,
       longitude: 2.294694,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -235,7 +235,7 @@ const offers: Offers = [
       location: {
         latitude: 50.85045,
         longitude: 4.34878,
-        zoom: 10
+        zoom: 12
       },
       name: 'Brussels'
     },
@@ -251,7 +251,7 @@ const offers: Offers = [
     location: {
       latitude: 50.8468,
       longitude: 4.3524,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -269,7 +269,7 @@ const offers: Offers = [
       location: {
         latitude: 53.5511,
         longitude: 9.9937,
-        zoom: 10
+        zoom: 12
       },
       name: 'Hamburg'
     },
@@ -285,7 +285,7 @@ const offers: Offers = [
     location: {
       latitude: 53.5450,
       longitude: 9.9968,
-      zoom: 10
+      zoom: 12
     },
   },
   {
@@ -303,7 +303,7 @@ const offers: Offers = [
       location: {
         latitude: 51.2277,
         longitude: 6.7735,
-        zoom: 10
+        zoom: 12
       },
       name: 'Dusseldorf'
     },
@@ -319,7 +319,7 @@ const offers: Offers = [
     location: {
       latitude: 51.2179,
       longitude: 6.7617,
-      zoom: 10
+      zoom: 12
     },
   },
 ];

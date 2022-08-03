@@ -7,7 +7,7 @@ export const cities:City[] = [
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 10
+      zoom: 12
     },
     name: 'Paris'
   },
@@ -15,7 +15,7 @@ export const cities:City[] = [
     location: {
       latitude: 50.9375,
       longitude: 6.9603,
-      zoom: 10
+      zoom: 12
     },
     name: 'Cologne'
   },
@@ -23,7 +23,7 @@ export const cities:City[] = [
     location: {
       latitude: 50.85045,
       longitude: 4.34878,
-      zoom: 10
+      zoom: 12
     },
     name: 'Brussels'
   },
@@ -31,7 +31,7 @@ export const cities:City[] = [
     location: {
       latitude: 52.3676,
       longitude: 4.9041,
-      zoom: 10
+      zoom: 12
     },
     name: 'Amsterdam'
   },
@@ -39,7 +39,7 @@ export const cities:City[] = [
     location: {
       latitude: 53.5511,
       longitude: 9.9937,
-      zoom: 10
+      zoom: 12
     },
     name: 'Hamburg'
   },
@@ -47,7 +47,7 @@ export const cities:City[] = [
     location: {
       latitude: 51.2277,
       longitude: 6.7735,
-      zoom: 10
+      zoom: 12
     },
     name: 'Dusseldorf'
   }
