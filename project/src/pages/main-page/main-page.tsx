@@ -1,16 +1,39 @@
 import { useState } from 'react';
 import Place from '../../components/place/place';
 import Map from '../../components/map/map';
-import {Offers} from '../../types/offers';
-import {points,city,selectedPoint} from '../../mocks/points';
+import CityTab from '../../components/city-tab/city-tab';
+import {cities} from '../../mocks/points';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/actions';
+import { Offers } from '../../types/offers';
 
-type MainPageProps = {
-  placesAmount: number,
-  offers: Offers
-}
 
-function MainPage({placesAmount, offers}: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<number>();
+  const {offers, city} = useAppSelector((state)=>state);
+  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+  const placesAmount = filteredOffers.length;
+  const cityFull = cities.filter((item) => item.name === city)[0];
+  const citiesNames = cities.map((item)=>item.name);
+  const offersToPoints = (items:Offers) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
+  const points = offersToPoints(filteredOffers);
+  const [selectedPoint, setSelectedPoint] = useState(points[0]);
+
+  const dispatch = useAppDispatch();
+
+
+  const cityChangeHandle = (cityName: string) => {
+    dispatch(changeCity(cityName));
+  };
+
+  const activeOfferChangeHandle = (id:number) => {
+    setActiveCardId(id);
+    const activeOffers = filteredOffers.filter((offer) => offer.id === id);
+    const point = offersToPoints(activeOffers)[0];
+    setSelectedPoint(point);
+
+  };
+
   return(
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -18,36 +41,7 @@ function MainPage({placesAmount, offers}: MainPageProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {citiesNames.map((cityName)=><CityTab key={cityName} cityName={cityName} activeCity={city} onCityChange={cityChangeHandle}/>)}
             </ul>
           </section>
         </div>
@@ -55,7 +49,7 @@ function MainPage({placesAmount, offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesAmount} places to stay in Amsterdam</b>
+              <b className="places__found">{placesAmount} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -72,12 +66,12 @@ function MainPage({placesAmount, offers}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <Place key={`place-${offer.id}`} offer={offer} isActive={offer.id === activeCardId} setActive={setActiveCardId}/>)}
+                {filteredOffers.map((offer) => <Place key={`place-${offer.id}`} offer={offer} isActive={offer.id === activeCardId} setActive={activeOfferChangeHandle}/>)}
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} points={points} selectedPoint={selectedPoint}/>
+                <Map city={cityFull} points={points} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>

@@ -7,25 +7,19 @@ import Room from '../../pages/room/room';
 import Login from '../../pages/login/login';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offers';
 
 
-type AppProps = {
-  placesAmount: number;
-  offers: Offers;
-}
-
-function App({placesAmount, offers}: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
-          <Route index element={<MainPage placesAmount={placesAmount} offers={offers}/>}/>
+          <Route index element={<MainPage />}/>
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorisationStatus={AuthorisationStatus.Auth}>
-                <Favorites offers={offers}/>
+                <Favorites />
               </PrivateRoute>
             }
           />

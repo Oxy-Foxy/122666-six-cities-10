@@ -1,37 +1,57 @@
-import { Points,Point } from '../types/points';
+import { Point } from '../types/points';
 import { City } from '../types/offers';
 
-export const points:Points = [
-  {
-    title: 'Title 1',
-    latitude: 52.3909553943508,
-    longitude: 4.85309666406198
-  },
-  {
-    title: 'Title 2',
-    latitude: 52.369553943508,
-    longitude: 4.85309666406198
-  },
-  {
-    title: 'Title 3',
-    latitude: 52.3909553943508,
-    longitude: 4.929309666406198
-  },
-  {
-    title: 'Title 4',
-    latitude: 52.3809553943508,
-    longitude: 4.939309666406198
-  },
-];
 
-export const city:City = {
-  location: {
-    latitude: 52.377956,
-    longitude: 4.897070,
-    zoom:10
+export const cities:City[] = [
+  {
+    location: {
+      latitude: 48.864716,
+      longitude: 2.349014,
+      zoom: 12
+    },
+    name: 'Paris'
   },
-  name: 'Amsterdam'
-};
+  {
+    location: {
+      latitude: 50.9375,
+      longitude: 6.9603,
+      zoom: 12
+    },
+    name: 'Cologne'
+  },
+  {
+    location: {
+      latitude: 50.85045,
+      longitude: 4.34878,
+      zoom: 12
+    },
+    name: 'Brussels'
+  },
+  {
+    location: {
+      latitude: 52.3676,
+      longitude: 4.9041,
+      zoom: 12
+    },
+    name: 'Amsterdam'
+  },
+  {
+    location: {
+      latitude: 53.5511,
+      longitude: 9.9937,
+      zoom: 12
+    },
+    name: 'Hamburg'
+  },
+  {
+    location: {
+      latitude: 51.2277,
+      longitude: 6.7735,
+      zoom: 12
+    },
+    name: 'Dusseldorf'
+  }
+];
 
 export const selectedPoint:Point = {
   title: 'Amsterdam',

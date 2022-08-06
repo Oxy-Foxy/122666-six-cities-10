@@ -3,7 +3,7 @@ import {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import {Points, Point} from '../../types/points';
 import { City } from '../../types/offers';
-import {Icon, Marker} from 'leaflet';
+import {Icon, Marker, LayerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 import useMap from '../../hooks/map/map';
@@ -32,6 +32,7 @@ function Map(props: MapProps):JSX.Element {
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const markers = new LayerGroup();
     if (map) {
       points.forEach((point) => {
         const marker = new Marker({
@@ -45,14 +46,19 @@ function Map(props: MapProps):JSX.Element {
               ? currentCustomIcon
               : defaultCustomIcon
           )
-          .addTo(map);
+          .addTo(markers);
       });
+      markers.addTo(map);
+      map.flyTo([selectedPoint.latitude, selectedPoint.longitude]);
     }
+    return ()=> {
+      markers.clearLayers();
+    };
   }, [map, points, selectedPoint]);
 
 
   return (
-    <div ref={mapRef}></div>
+    <div style={{height:'100%'}} ref={mapRef}></div>
   );
 }
 

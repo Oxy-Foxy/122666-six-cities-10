@@ -1,12 +1,8 @@
-import {Offers} from '../../types/offers';
 import LocationsItem from '../../components/locations-item/locations-item';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesProps = {
-  offers: Offers;
-}
-
-
-function Favorites({offers}:FavoritesProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const {offers} = useAppSelector((state)=>state);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = [...new Set(offers.map((offer)=>offer.city.name))];
 
