@@ -11,7 +11,7 @@ import useMap from '../../hooks/map/map';
 type MapProps = {
   city: City;
   points: Points;
-  selectedPoint: Point
+  selectedPoint?: Point
 };
 
 const defaultCustomIcon = new Icon({
@@ -35,6 +35,7 @@ function Map(props: MapProps):JSX.Element {
     const markers = new LayerGroup();
     if (map) {
       points.forEach((point) => {
+        const pointIsSelected = selectedPoint !== undefined && point.latitude === selectedPoint.latitude && point.longitude === selectedPoint.longitude;
         const marker = new Marker({
           lat: point.latitude,
           lng: point.longitude
@@ -42,19 +43,24 @@ function Map(props: MapProps):JSX.Element {
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            pointIsSelected
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(markers);
       });
       markers.addTo(map);
-      map.flyTo([selectedPoint.latitude, selectedPoint.longitude]);
     }
     return ()=> {
       markers.clearLayers();
     };
   }, [map, points, selectedPoint]);
+
+  useEffect(() => {
+    if(map){
+      map.flyTo([city.location.latitude, city.location.longitude]);
+    }
+  }, [map, city]);
 
 
   return (

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Place from '../../components/place/place';
 import Map from '../../components/map/map';
 import CityTab from '../../components/city-tab/city-tab';
-import {cities} from '../../mocks/points';
+import {CITIES} from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/actions';
 import { Offers } from '../../types/offers';
+import { Point } from '../../types/points';
 
 
 function MainPage(): JSX.Element {
@@ -13,12 +14,11 @@ function MainPage(): JSX.Element {
   const {offers, city} = useAppSelector((state)=>state);
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   const placesAmount = filteredOffers.length;
-  const cityFull = cities.filter((item) => item.name === city)[0];
-  const citiesNames = cities.map((item)=>item.name);
+  const cityFull = CITIES.filter((item) => item.name === city)[0];
+  const citiesNames = CITIES.map((item)=>item.name);
   const offersToPoints = (items:Offers) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
   const points = offersToPoints(filteredOffers);
-  const [selectedPoint, setSelectedPoint] = useState(points[0]);
-
+  const [selectedPoint, setSelectedPoint] = useState<Point>();
   const dispatch = useAppDispatch();
 
 

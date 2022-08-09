@@ -3,9 +3,12 @@ import NotFound from '../not-found/not-found';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewItem from '../../components/reviews-item/reviews-item';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
-import offers from '../../mocks/offers';
-import reviews from '../../mocks/reviews';
 import { useParams } from 'react-router-dom';
+
+import { Offers } from '../../types/offers';
+import { Reviews } from '../../types/reviews';
+const offers:Offers = [];
+const reviews: Reviews = [];
 
 type ImageItemProps = {
   src: string,
