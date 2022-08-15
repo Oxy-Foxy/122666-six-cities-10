@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import NotFound from '../not-found/not-found';
+import Login from '../login/login';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewItem from '../../components/reviews-item/reviews-item';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import { useParams } from 'react-router-dom';
-
+import Header from './../../components/header/header';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 const offers:Offers = [];
@@ -41,7 +41,7 @@ function Room(): JSX.Element {
   const offer = offers.filter((item) => item.id === Number(id))[0];
   const [roomIsFavorite, setRoomIsFavorite] = useState(offer?.isFavorite || false);
   if(!offer) {
-    return (<NotFound />);
+    return (<Login />);
   }
   const {isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
   const imagesToRender = images.slice(0, MAX_IMAGES_AMOUNT);
@@ -52,6 +52,7 @@ function Room(): JSX.Element {
 
   return (
     <div className="page">
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

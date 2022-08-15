@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import Layout from '../layout/layout';
 import MainPage from '../../pages/main-page/main-page';
 import Favorites from '../../pages/favorites/favorites';
@@ -9,22 +9,26 @@ import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import LoadingSpinner from '../spinner/spinner';
 import { useAppSelector } from '../../hooks';
+import HistoryRouter from './../histoty-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 function App(): JSX.Element {
-  const {isDataLoading} = useAppSelector((state) => state);
+  const {isDataLoading, authorizationStatus} = useAppSelector((state) => state);
+  /* eslint no-console: ["error", { allow: ["log", "error"] }] */
+  console.log(authorizationStatus);
   if(isDataLoading){
     return <LoadingSpinner/>;
   }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
           <Route index element={<MainPage />}/>
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute>
                 <Favorites />
               </PrivateRoute>
             }
@@ -34,7 +38,7 @@ function App(): JSX.Element {
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

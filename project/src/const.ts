@@ -15,6 +15,8 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const URL_MARKER_DEFAULT =

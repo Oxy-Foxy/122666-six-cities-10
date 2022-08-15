@@ -1,7 +1,7 @@
 function NotFound(): JSX.Element {
   return (
-    <div className="page" style={{display:'flex',flexDirection:'column'}}>
-      <main className="page__main page__main--not-found" style={{flexGrow:1}}>
+    <div className="page" style={{display:'flex',flexDirection:'column',height:'100vh'}}>
+      <main className="page__main page__main--not-found" style={{flexGrow:1,display:'flex',alignItems:'center',justifyContent:'center'}}>
         <div className="container">
           <section className="not-found" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
             <p style={{fontSize:'40px', lineHeight:'42px'}}>404 Not Found</p>

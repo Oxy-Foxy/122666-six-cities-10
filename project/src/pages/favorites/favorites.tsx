@@ -1,5 +1,6 @@
 import LocationsItem from '../../components/locations-item/locations-item';
 import { useAppSelector } from '../../hooks';
+import Header from './../../components/header/header';
 
 function Favorites(): JSX.Element {
   const {offers} = useAppSelector((state)=>state);
@@ -8,6 +9,7 @@ function Favorites(): JSX.Element {
 
   return (
     <div className="page">
+      <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
