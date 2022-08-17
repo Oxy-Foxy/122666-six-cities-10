@@ -1,6 +1,6 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import { getToken } from './token';
-import {BASE_URL, TIMEOUT} from '../const';
+import {APIRoute, BASE_URL, TIMEOUT} from '../const';
 import {StatusCodes} from 'http-status-codes';
 import { processErrorHandle } from './process-error-handle';
 
@@ -10,7 +10,11 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
-const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const shouldDisplayError = (response: AxiosResponse) => {
+  const codeIsError = !!StatusCodeMapping[response.status];
+  const requestIsCheckAuthorization = response.config.url === APIRoute.Login && response.config.method === 'get';
+  return codeIsError && !requestIsCheckAuthorization;
+};
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
