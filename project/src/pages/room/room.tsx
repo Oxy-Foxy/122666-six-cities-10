@@ -4,11 +4,8 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewItem from '../../components/reviews-item/reviews-item';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import { useParams } from 'react-router-dom';
-
-import { Offers } from '../../types/offers';
-import { Reviews } from '../../types/reviews';
-const offers:Offers = [];
-const reviews: Reviews = [];
+import Header from './../../components/header/header';
+import { useAppSelector } from '../../hooks';
 
 type ImageItemProps = {
   src: string,
@@ -38,6 +35,7 @@ function Room(): JSX.Element {
   const MAX_IMAGES_AMOUNT = 6;
   const MAX_REVIEWS_AMOUNT = 10;
   const {id} = useParams();
+  const {offers, reviews} = useAppSelector((state)=>state);
   const offer = offers.filter((item) => item.id === Number(id))[0];
   const [roomIsFavorite, setRoomIsFavorite] = useState(offer?.isFavorite || false);
   if(!offer) {
@@ -52,6 +50,7 @@ function Room(): JSX.Element {
 
   return (
     <div className="page">
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
