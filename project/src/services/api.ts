@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
 import {toast} from 'react-toastify';
 import { getToken } from './token';
-import {BASE_URL, TIMEOUT, APIRoute} from '../const';
+import {APIRoute, BASE_URL, TIMEOUT} from '../const';
 import {StatusCodes} from 'http-status-codes';
 
 const StatusCodeMapping: Record<number, boolean> = {
