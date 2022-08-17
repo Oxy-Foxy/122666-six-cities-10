@@ -17,9 +17,6 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function App(): JSX.Element {
   const isDataLoading = useAppSelector(getLoadingStatus);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  /* eslint no-console: ["error", { allow: ["log", "error"] }] */
-  console.log(authorizationStatus);
   if(isDataLoading){
     return <LoadingSpinner/>;
   }
