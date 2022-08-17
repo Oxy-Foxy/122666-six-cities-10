@@ -5,6 +5,7 @@ import {fetchOffersAction} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],
+  reviews: [],
   isDataLoading:false,
 };
 

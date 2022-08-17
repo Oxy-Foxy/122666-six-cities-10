@@ -2,6 +2,7 @@
 import {store} from '../store/index';
 import {AuthorizationStatus} from '../const';
 import { Offers } from './offers';
+import { Reviews } from './reviews';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus
@@ -9,6 +10,7 @@ export type UserProcess = {
 
 export type DataProcess = {
   offers: Offers,
+  reviews: Reviews,
   isDataLoading: boolean
 }
 

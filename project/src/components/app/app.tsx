@@ -12,7 +12,6 @@ import { useAppSelector } from '../../hooks';
 import HistoryRouter from './../histoty-route/history-route';
 import browserHistory from '../../browser-history';
 import { getLoadingStatus } from '../../store/data-process/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function App(): JSX.Element {
