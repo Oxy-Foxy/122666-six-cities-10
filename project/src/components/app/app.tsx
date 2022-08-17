@@ -14,9 +14,7 @@ import browserHistory from '../../browser-history';
 
 
 function App(): JSX.Element {
-  const {isDataLoading, authorizationStatus} = useAppSelector((state) => state);
-  /* eslint no-console: ["error", { allow: ["log", "error"] }] */
-  console.log(authorizationStatus);
+  const {isDataLoading} = useAppSelector((state) => state);
   if(isDataLoading){
     return <LoadingSpinner/>;
   }

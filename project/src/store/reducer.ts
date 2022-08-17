@@ -2,10 +2,12 @@ import { createReducer } from '@reduxjs/toolkit';
 import { Offers } from '../types/offers';
 import { changeCity, changeOffers, loadOffers, setDataLoadingStatus, requireAuthorization, setError} from './actions';
 import {AuthorizationStatus, INITIAL_CITY} from '../const';
+import { Reviews } from '../types/reviews';
 
 type InitialState = {
   city: string,
   offers: Offers,
+  reviews: Reviews,
   isDataLoading: boolean
   authorizationStatus: AuthorizationStatus,
   error: string | null,
@@ -14,6 +16,7 @@ type InitialState = {
 const initialState:InitialState = {
   city: INITIAL_CITY,
   offers: [],
+  reviews:[],
   isDataLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null
