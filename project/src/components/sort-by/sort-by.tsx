@@ -4,11 +4,8 @@ import {sortTypes} from '../../const';
 import {changeSortType} from '../../store/app-process/app-process';
 import {getSortType} from '../../store/app-process/selectors';
 
-type SortByProps = {
-  onSortChange: (sortType:string) => void;
-}
 
-function SortBy({onSortChange}: SortByProps):JSX.Element {
+function SortBy():JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const sortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
@@ -17,7 +14,6 @@ function SortBy({onSortChange}: SortByProps):JSX.Element {
   const sortTypeChangeHandle = (type: string) => {
     dispatch(changeSortType(type));
     setIsOpen(false);
-    onSortChange(type);
   };
 
   return (
