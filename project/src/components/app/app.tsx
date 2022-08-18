@@ -11,10 +11,11 @@ import LoadingSpinner from '../spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from './../histoty-route/history-route';
 import browserHistory from '../../browser-history';
+import { getLoadingStatus } from '../../store/data-process/selectors';
 
 
 function App(): JSX.Element {
-  const {isDataLoading} = useAppSelector((state) => state);
+  const isDataLoading = useAppSelector(getLoadingStatus);
   if(isDataLoading){
     return <LoadingSpinner/>;
   }

@@ -19,6 +19,19 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum sortTypes {
+  Popular = 'Popular',
+  LowToHight = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first'
+}
+
+export enum NameSpace {
+  User = 'USER',
+  Data = 'DATA',
+  App = 'APP'
+}
+
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
@@ -31,6 +44,8 @@ export const TIMEOUT = 5000;
 export const AUTH_TOKEN_KEY_NAME = 'six_cities_api_token';
 
 export const INITIAL_CITY = 'Paris';
+
+export const INITIAL_SORT_TYPE = 'Popular';
 
 export const CITIES:City[] = [
   {

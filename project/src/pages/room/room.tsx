@@ -6,6 +6,7 @@ import PremiumStateLabel from '../../components/premium-state-label/premium-stat
 import { useParams } from 'react-router-dom';
 import Header from './../../components/header/header';
 import { useAppSelector } from '../../hooks';
+import { getOffers, getReviews } from '../../store/data-process/selectors';
 
 type ImageItemProps = {
   src: string,
@@ -35,7 +36,8 @@ function Room(): JSX.Element {
   const MAX_IMAGES_AMOUNT = 6;
   const MAX_REVIEWS_AMOUNT = 10;
   const {id} = useParams();
-  const {offers, reviews} = useAppSelector((state)=>state);
+  const offers = useAppSelector(getOffers);
+  const reviews = useAppSelector(getReviews);
   const offer = offers.filter((item) => item.id === Number(id))[0];
   const [roomIsFavorite, setRoomIsFavorite] = useState(offer?.isFavorite || false);
   if(!offer) {

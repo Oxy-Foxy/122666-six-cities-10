@@ -1,6 +1,8 @@
+import {Link} from 'react-router-dom';
 import LocationsItem from '../../components/locations-item/locations-item';
-import { useAppSelector } from '../../hooks';
 import Header from './../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import {getOffers} from '../../store/data-process/selectors';
 
 function EmptyMessage():JSX.Element {
   return (
@@ -12,7 +14,7 @@ function EmptyMessage():JSX.Element {
 }
 
 function Favorites(): JSX.Element {
-  const {offers} = useAppSelector((state)=>state);
+  const offers = useAppSelector(getOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = [...new Set(offers.map((offer)=>offer.city.name))];
 
@@ -37,9 +39,9 @@ function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={'/'}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        </Link>
       </footer>
     </div>
   );
