@@ -3,7 +3,6 @@ import {State} from '../../types/state';
 import {sortTypes} from '../../const';
 import {getOffers} from '../data-process/selectors';
 import { createSelector } from 'reselect';
-import { cloneDeep } from 'lodash';
 
 export const getCurrentCity = (state: State): string => state[NameSpace.App].city;
 export const getSortType = (state: State): string => state[NameSpace.App].sortType;
@@ -16,7 +15,7 @@ export const filterOffers = createSelector(
 export const sortOffers = createSelector(
   [filterOffers, getSortType],
   (offers, sortType) => {
-    const filteredOffers = cloneDeep(offers);
+    const filteredOffers = [...offers];
     switch (sortType) {
       case sortTypes.Popular:
         return offers;
