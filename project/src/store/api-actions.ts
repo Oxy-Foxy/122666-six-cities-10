@@ -1,12 +1,13 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import { Offers } from '../types/offers.js';
+import { Offers,Offer } from '../types/offers.js';
 import { redirectToRoute } from './actions';
 import { APIRoute, AppRoute } from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
+import {Reviews} from '../types/reviews';
 
 type ThunkType = {
   dispatch: AppDispatch,
@@ -18,6 +19,30 @@ export const fetchOffersAction = createAsyncThunk<Offers,undefined,ThunkType>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) =>{
     const {data} = await api.get<Offers>(APIRoute.Offers);
+    return data;
+  }
+);
+
+export const fetchOfferAction = createAsyncThunk<Offer, string|undefined, ThunkType>(
+  'data/fetchOffer',
+  async (id, {dispatch, extra: api}) =>{
+    const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+    return data;
+  }
+);
+
+export const fetchNearbyPlacesAction = createAsyncThunk<Offers, string|undefined, ThunkType>(
+  'data/fetchNearbyPlaces',
+  async (id, {dispatch, extra: api}) =>{
+    const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+    return data;
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<Reviews, string|undefined, ThunkType>(
+  'data/fetchReviews',
+  async (id, {dispatch, extra: api}) =>{
+    const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${id}`);
     return data;
   }
 );

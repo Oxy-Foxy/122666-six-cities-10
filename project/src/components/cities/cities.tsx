@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
-import Place from '../../components/place/place';
+import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
 import {CITIES, sortTypes} from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -26,7 +26,7 @@ const sortOffers = (type: string, offers: Offers):Offers => {
 };
 
 function Cities():JSX.Element {
-  const [activeCardId, setActiveCardId] = useState<number>();
+  const [, setActiveCardId] = useState<number>();
   const offers = useAppSelector(getOffers);
   const city = useAppSelector(getCurrentCity);
   const sortType = useAppSelector(getSortType);
@@ -59,7 +59,7 @@ function Cities():JSX.Element {
           <b className="places__found">{placesAmount} places to stay in {city}</b>
           {<SortBy onSortChange={onSortChange}/>}
           <div className="cities__places-list places__list tabs__content">
-            {sortedOffers.map((offer) => <Place key={`place-${offer.id}`} offer={offer} isActive={offer.id === activeCardId} setActive={activeOfferChangeHandle}/>)}
+            {sortedOffers.map((offer) => <PlaceCard key={`place-${offer.id}`} cardType={'cities'} offer={offer} setActive={activeOfferChangeHandle}/>)}
           </div>
         </section>
         <div className="cities__right-section">

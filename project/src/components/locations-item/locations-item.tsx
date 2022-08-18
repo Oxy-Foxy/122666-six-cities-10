@@ -1,5 +1,5 @@
 import {Offers} from '../../types/offers';
-import FavoritePlace from '../../components/favorite-place/favorite-place';
+import PlaceCard from '../../components/place-card/place-card';
 
 type LocationsItemProps = {
   favoriteOffers: Offers;
@@ -18,7 +18,7 @@ function LocationsItem({favoriteOffers, cityName}:LocationsItemProps):JSX.Elemen
         </div>
       </div>
       <div className="favorites__places">
-        {filteredOffers.map((offer) => <FavoritePlace key={`place-${offer.id}`} offer={offer} />)}
+        {filteredOffers.map((offer) => <PlaceCard key={`place-${offer.id}`} cardType={'favorites'} offer={offer} setActive={() => false}/>)}
       </div>
     </li>
   );
