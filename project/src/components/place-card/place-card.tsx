@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import { Offer } from '../../types/offers';
 import {Link} from 'react-router-dom';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
@@ -7,18 +8,17 @@ import OfferCardDescription from '../../components/offer-card-description/offer-
 
 type PlaceCardProps = {
   offer: Offer,
-  cardType: 'cities' | 'favorites' | 'near-places',
-  setActive: (id: number) => void
+  cardType: 'cities' | 'favorites' | 'near-places'
 }
 
-function PlaceCard({offer, cardType, setActive}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, cardType}: PlaceCardProps): JSX.Element {
   const {isFavorite,isPremium, id, previewImage, title, price, rating, type} = offer;
   const roomLink = `offer/${id}`;
   const imgWidth = cardType === 'favorites' ? '150' : '260';
   const imgHeight = cardType === 'favorites' ? '110' : '200';
 
   return (
-    <article className={`${cardType}__card place-card`} onMouseOver={() => setActive(id)}>
+    <article className={`${cardType}__card place-card`}>
       { isPremium && <PremiumStateLabel /> }
       <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
         <Link to={roomLink}>
@@ -34,4 +34,4 @@ function PlaceCard({offer, cardType, setActive}: PlaceCardProps): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

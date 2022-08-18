@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import NotFound from '../not-found/not-found';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import { useParams } from 'react-router-dom';
@@ -6,9 +6,11 @@ import Header from './../../components/header/header';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import {fetchReviewsAction, fetchOfferAction, fetchNearbyPlacesAction} from '../../store/api-actions';
 import {getOffer, getReviewsPendingStatus, getNearbyPendingStatus, getNearbyPlaces} from '../../store/data-process/selectors';
+import {getCurrentCity} from '../../store/app-process/selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
+import Map from '../../components/map/map';
 
 type ImageItemProps = {
   src: string,
@@ -39,6 +41,8 @@ function Room(): JSX.Element {
   const reviewsPendingStatus = useAppSelector(getReviewsPendingStatus);
   const nearbyPendingStatus = useAppSelector(getNearbyPendingStatus);
   const dispatch = useAppDispatch();
+  const [selectedPointId, setSelectedPointId] = useState<number|string>();
+  const currentCity = useAppSelector(getCurrentCity);
 
   useEffect(() => {
     id && dispatch(fetchOfferAction(id));
@@ -67,6 +71,7 @@ function Room(): JSX.Element {
   const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
   const imagesToRender = images.slice(0, MAX_IMAGES_AMOUNT);
   const formattedRoomType = `${type[0].toUpperCase()}${type.substring(1)}`;
+
 
   return (
     <div className="page">
@@ -123,13 +128,19 @@ function Room(): JSX.Element {
               <ReviewsList />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map city={currentCity} offers={nearbyPlaces} selectedPointId={selectedPointId}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyPlaces.map((item) => <PlaceCard key={`place-${item.id}`} cardType={'near-places'} offer={item} setActive={() => false}/>)}
+              {nearbyPlaces.map((item) => (
+                <div key={`place-${item.id}`} onMouseOver={() => setSelectedPointId(item.id)}>
+                  <PlaceCard cardType={'cities'} offer={item} />
+                </div>
+              ))}
             </div>
           </section>
         </div>

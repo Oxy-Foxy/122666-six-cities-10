@@ -1,45 +1,34 @@
 import { useState } from 'react';
-import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
-import {CITIES} from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Offers } from '../../types/offers';
-import { Point } from '../../types/points';
 import SortBy from '../../components/sort-by/sort-by';
-import {getCurrentCity, sortOffers} from '../../store/app-process/selectors';
+import {getCurrentCity, getSortedOffers} from '../../store/app-process/selectors';
+import PlaceCard from '../place-card/place-card';
 
 function Cities():JSX.Element {
-  const [, setActiveCardId] = useState<number>();
-  const offers = useAppSelector(sortOffers);
-  const city = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getSortedOffers);
   const placesAmount = offers.length;
-  const offersToPoints = (items:Offers) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
-
-  const cityFull = CITIES.filter((item) => item.name === city)[0];
-  const points = offersToPoints(offers);
-  const [selectedPoint, setSelectedPoint] = useState<Point>();
-
-  const activeOfferChangeHandle = (id:number) => {
-    setActiveCardId(id);
-    const activeOffers = offers.filter((offer) => offer.id === id);
-    const point = offersToPoints(activeOffers)[0];
-    setSelectedPoint(point);
-  };
+  const [selectedPointId, setSelectedPointId] = useState<number|string>();
+  const currentCity = useAppSelector(getCurrentCity);
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{placesAmount} places to stay in {city}</b>
+          <b className="places__found">{placesAmount} places to stay in {currentCity}</b>
           {<SortBy />}
-          <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer) => <PlaceCard key={`place-${offer.id}`} cardType={'cities'} offer={offer} setActive={activeOfferChangeHandle}/>)}
+          <div className="near-places__list places__list">
+            {offers.map((item) => (
+              <div key={`place-${item.id}`} onMouseOver={() => setSelectedPointId(item.id)}>
+                <PlaceCard cardType={'cities'} offer={item} />
+              </div>
+            ))}
           </div>
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            <Map city={cityFull} points={points} selectedPoint={selectedPoint}/>
+            <Map city={currentCity} offers={offers} selectedPointId={selectedPointId}/>
           </section>
         </div>
       </div>

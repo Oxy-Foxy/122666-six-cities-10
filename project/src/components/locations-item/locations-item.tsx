@@ -18,7 +18,7 @@ function LocationsItem({favoriteOffers, cityName}:LocationsItemProps):JSX.Elemen
         </div>
       </div>
       <div className="favorites__places">
-        {filteredOffers.map((offer) => <PlaceCard key={`place-${offer.id}`} cardType={'favorites'} offer={offer} setActive={() => false}/>)}
+        {filteredOffers.map((offer) => <PlaceCard key={`place-${offer.id}`} cardType={'favorites'} offer={offer} />)}
       </div>
     </li>
   );
