@@ -15,15 +15,16 @@ export const getFilteredOffers = createSelector(
 export const getSortedOffers = createSelector(
   [getFilteredOffers, getSortType],
   (offers, sortType) => {
+    const filteredOffers = [...offers];
     switch (sortType) {
       case sortTypes.Popular:
         return offers;
       case sortTypes.LowToHight:
-        return offers.sort((a,b) => a.price - b.price);
+        return filteredOffers.sort((a,b) => a.price - b.price);
       case sortTypes.HighToLow:
-        return offers.sort((a,b) => b.price - a.price);
+        return filteredOffers.sort((a,b) => b.price - a.price);
       case sortTypes.TopRated:
-        return offers.sort((a,b) => b.rating - a.rating);
+        return filteredOffers.sort((a,b) => b.rating - a.rating);
       default:
         return offers;
     }
