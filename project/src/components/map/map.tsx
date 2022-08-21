@@ -1,17 +1,14 @@
 import {useRef, useEffect} from 'react';
-
 import 'leaflet/dist/leaflet.css';
-import {Points, Point} from '../../types/points';
-import { City } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import {Icon, Marker, LayerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
-
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, CITIES} from '../../const';
 import useMap from '../../hooks/map/map';
 
 type MapProps = {
-  city: City;
-  points: Points;
-  selectedPoint?: Point
+  offers: Offers;
+  city: string,
+  selectedPointId?: number|string
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,9 +23,14 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({city, points, selectedPoint}: MapProps):JSX.Element {
+function Map({city, offers, selectedPointId}: MapProps):JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const currentCity = CITIES.filter((item) => item.name === city)[0];
+  const map = useMap(mapRef, currentCity);
+  const offersToPoints = (items:Offers) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
+  const points = offersToPoints(offers);
+  const selectedOffers = offers.filter((offer) => offer.id === selectedPointId);
+  const selectedPoint = offersToPoints(selectedOffers)[0];
 
   useEffect(() => {
     const markers = new LayerGroup();
@@ -57,9 +59,9 @@ function Map({city, points, selectedPoint}: MapProps):JSX.Element {
 
   useEffect(() => {
     if(map){
-      map.flyTo([city.location.latitude, city.location.longitude]);
+      map.flyTo([currentCity.location.latitude, currentCity.location.longitude]);
     }
-  }, [map, city]);
+  }, [map, currentCity]);
 
 
   return (

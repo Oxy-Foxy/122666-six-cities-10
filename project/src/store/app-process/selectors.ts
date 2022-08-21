@@ -7,13 +7,13 @@ import { createSelector } from 'reselect';
 export const getCurrentCity = (state: State): string => state[NameSpace.App].city;
 export const getSortType = (state: State): string => state[NameSpace.App].sortType;
 
-export const filterOffers = createSelector(
+export const getFilteredOffers = createSelector(
   [getOffers, getCurrentCity],
   (offers, city) => offers.filter((offer) => offer.city.name === city)
 );
 
-export const sortOffers = createSelector(
-  [filterOffers, getSortType],
+export const getSortedOffers = createSelector(
+  [getFilteredOffers, getSortType],
   (offers, sortType) => {
     const filteredOffers = [...offers];
     switch (sortType) {

@@ -1,12 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffersAction} from '../api-actions';
+import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],
+  offer: null,
+  nearbyPlaces: [],
   reviews: [],
-  isDataLoading:false,
+  isDataLoading: false,
+  isOfferLoading: false,
+  isReviewsPending: false,
+  isNearbyPlacesPending: false
 };
 
 export const dataProcess = createSlice({
@@ -21,6 +26,27 @@ export const dataProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoading = false;
+      })
+      .addCase(fetchOfferAction.pending, (state) => {
+        state.isOfferLoading = true;
+      })
+      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+        state.offer = action.payload;
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchReviewsAction.pending, (state) => {
+        state.isReviewsPending = true;
+      })
+      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+        state.isReviewsPending = false;
+      })
+      .addCase(fetchNearbyPlacesAction.pending, (state) => {
+        state.isNearbyPlacesPending = true;
+      })
+      .addCase(fetchNearbyPlacesAction.fulfilled, (state, action) => {
+        state.nearbyPlaces = action.payload;
+        state.isNearbyPlacesPending = false;
       });
   }
 });

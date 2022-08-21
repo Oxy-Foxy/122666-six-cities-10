@@ -1,8 +1,8 @@
 type PremiumStateLabelProps = {
-  className:string
+  className?:string
 }
 
-function PremiumStateLabel({className}:PremiumStateLabelProps): JSX.Element {
+function PremiumStateLabel({className = 'place-card__mark'}:PremiumStateLabelProps): JSX.Element {
   return (
     <div className={className}>
       <span>Premium</span>
