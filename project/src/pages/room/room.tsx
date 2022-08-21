@@ -38,7 +38,7 @@ function GoodsItem({good}:GoodsItemProps):JSX.Element {
 
 function Room(): JSX.Element {
   const MAX_IMAGES_AMOUNT = 6;
-  const {id} = useParams();
+  const {id: paramsId} = useParams();
   const reviewsPendingStatus = useAppSelector(getReviewsPendingStatus);
   const nearbyPendingStatus = useAppSelector(getNearbyPendingStatus);
   const dispatch = useAppDispatch();
@@ -46,20 +46,20 @@ function Room(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
 
   useEffect(() => {
-    id && dispatch(fetchOfferAction(id));
-  }, [id]);
+    paramsId && dispatch(fetchOfferAction(paramsId));
+  }, [paramsId]);
 
   const offer = useAppSelector(getOffer);
 
   useEffect(() => {
-    if(id && !reviewsPendingStatus) {
-      dispatch(fetchReviewsAction(id));
+    if(paramsId && !reviewsPendingStatus) {
+      dispatch(fetchReviewsAction(paramsId));
     }
   }, []);
 
   useEffect(() => {
-    if(id && !nearbyPendingStatus) {
-      dispatch(fetchNearbyPlacesAction(id));
+    if(paramsId && !nearbyPendingStatus) {
+      dispatch(fetchNearbyPlacesAction(paramsId));
     }
   }, []);
 
@@ -73,7 +73,7 @@ function Room(): JSX.Element {
     return (<NotFound />);
   }
 
-  const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+  const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description, id} = offer;
   const imagesToRender = images.slice(0, MAX_IMAGES_AMOUNT);
   const formattedRoomType = `${type[0].toUpperCase()}${type.substring(1)}`;
 
@@ -130,7 +130,7 @@ function Room(): JSX.Element {
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <ReviewsList />
+              <ReviewsList id={id}/>
             </div>
           </div>
           <section className="property__map map">

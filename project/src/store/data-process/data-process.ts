@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction} from '../api-actions';
+import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],
@@ -11,7 +11,8 @@ const initialState: DataProcess = {
   isDataLoading: false,
   isOfferLoading: false,
   isReviewsPending: false,
-  isNearbyPlacesPending: false
+  isNearbyPlacesPending: false,
+  isReviewSubmitPending: false
 };
 
 export const dataProcess = createSlice({
@@ -40,6 +41,16 @@ export const dataProcess = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
         state.isReviewsPending = false;
+      })
+      .addCase(submitReviewAction.pending, (state) => {
+        state.isReviewSubmitPending = true;
+      })
+      .addCase(submitReviewAction.rejected, (state) => {
+        state.isReviewSubmitPending = false;
+      })
+      .addCase(submitReviewAction.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+        state.isReviewSubmitPending = false;
       })
       .addCase(fetchNearbyPlacesAction.pending, (state) => {
         state.isNearbyPlacesPending = true;

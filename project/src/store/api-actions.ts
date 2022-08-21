@@ -7,7 +7,7 @@ import { APIRoute, AppRoute } from '../const';
 import {saveToken, dropToken} from '../services/token';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import {Reviews} from '../types/reviews';
+import {Reviews, ReviewData} from '../types/reviews';
 
 type ThunkType = {
   dispatch: AppDispatch,
@@ -69,5 +69,13 @@ export const logoutAction = createAsyncThunk<void, undefined, ThunkType>(
     await api.delete(APIRoute.Logout);
     dropToken();
   },
+);
+
+export const submitReviewAction = createAsyncThunk<Reviews, ReviewData, ThunkType>(
+  'data/submitReview',
+  async({id, rating, comment}, {dispatch, extra: api}) => {
+    const {data} = await api.post(`${APIRoute.Reviews}/${id}`, {rating, comment});
+    return data;
+  }
 );
 

@@ -10,3 +10,4 @@ export const getReviews = (state: State): Reviews => state[NameSpace.Data].revie
 export const getLoadingStatus = (state: State): boolean => state[NameSpace.Data].isDataLoading;
 export const getReviewsPendingStatus = (state: State): boolean => state[NameSpace.Data].isReviewsPending;
 export const getNearbyPendingStatus = (state: State): boolean => state[NameSpace.Data].isNearbyPlacesPending;
+export const getReviewSubmitStatus = (state: State): boolean => state[NameSpace.Data].isReviewSubmitPending;
