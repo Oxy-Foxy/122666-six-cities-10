@@ -11,6 +11,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
+import LoadingSpinner from '../../components/spinner/spinner';
 
 type ImageItemProps = {
   src: string,
@@ -63,6 +64,10 @@ function Room(): JSX.Element {
   }, []);
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
+
+  if(reviewsPendingStatus || nearbyPendingStatus) {
+    return <LoadingSpinner />;
+  }
 
   if(!offer) {
     return (<NotFound />);
