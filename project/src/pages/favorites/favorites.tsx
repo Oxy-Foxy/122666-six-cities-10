@@ -1,8 +1,11 @@
 import {Link} from 'react-router-dom';
+import { store } from '../../store';
 import LocationsItem from '../../components/locations-item/locations-item';
 import Header from './../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import {getOffers} from '../../store/data-process/selectors';
+import {getFavoriteOffers, getFavoriteOffersStatus} from '../../store/data-process/selectors';
+import {fetchFavoriteOffers} from '../../store/api-actions';
+import LoadingSpinner from '../../components/spinner/spinner';
 
 function EmptyMessage():JSX.Element {
   return (
@@ -12,11 +15,16 @@ function EmptyMessage():JSX.Element {
     </div>
   );
 }
+store.dispatch(fetchFavoriteOffers());
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const favoriteCities = [...new Set(offers.map((offer)=>offer.city.name))];
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersStatus = useAppSelector(getFavoriteOffersStatus);
+  const favoriteCities = [...new Set(favoriteOffers.map((offer)=>offer.city.name))];
+
+  if(favoriteOffersStatus) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className={`page ${favoriteOffers.length ? '' : 'page--favorites-empty'}`}>

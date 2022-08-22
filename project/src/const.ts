@@ -1,7 +1,7 @@
 import { City } from './types/offers';
 export enum AppRoute {
   Root = '/',
-  Favorites = 'favorites',
+  Favorites = '/favorites',
   Room = 'offer/:id',
   Login = '/login',
   NotFound = '/not-found'
@@ -18,6 +18,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
+  Favorite = '/favorite'
 }
 
 export enum sortTypes {

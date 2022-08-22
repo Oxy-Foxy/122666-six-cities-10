@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Map from '../../components/map/map';
+import CitiesEmpty from '../../components/cities-empty/cities-empty';
 import { useAppSelector } from '../../hooks';
 import SortBy from '../../components/sort-by/sort-by';
 import {getCurrentCity, getSortedOffers} from '../../store/app-process/selectors';
@@ -10,6 +11,10 @@ function Cities():JSX.Element {
   const placesAmount = offers.length;
   const [selectedPointId, setSelectedPointId] = useState<number|string>();
   const currentCity = useAppSelector(getCurrentCity);
+
+  if(!offers.length) {
+    return <CitiesEmpty />;
+  }
 
   return (
     <div className="cities">
