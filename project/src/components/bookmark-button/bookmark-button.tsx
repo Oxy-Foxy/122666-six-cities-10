@@ -1,5 +1,8 @@
-import { useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { redirectToRoute } from '../../store/actions';
 
 type BookmarkButtonProps = {
   offerId:number,
@@ -10,10 +13,15 @@ type BookmarkButtonProps = {
 }
 
 function BookmarkButton({offerId, offerIsFavorite,classPrefix = 'place-card',iconWidth,iconHeight}: BookmarkButtonProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const handleFavoriteClick = () => {
-    dispatch(changeFavoriteStatusAction({id: offerId, status: Number(!offerIsFavorite)}));
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(changeFavoriteStatusAction({id: offerId, status: Number(!offerIsFavorite)}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };
 
   return (

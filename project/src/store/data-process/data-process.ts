@@ -61,6 +61,19 @@ export const dataProcess = createSlice({
       .addCase(changeFavoriteStatusAction.fulfilled, (state, {payload}) => {
         const offer = state.offers.filter((item)=> item.id === payload.id)[0];
         offer.isFavorite = payload.isFavorite;
+        const offerIndexInFavorites = state.favoriteOffers.findIndex((item) => item.id === payload.id);
+        const offerIndexInNearby = state.nearbyPlaces.findIndex((item) => item.id === payload.id);
+        if(offerIndexInFavorites === -1){
+          state.favoriteOffers.push(payload);
+        } else {
+          state.favoriteOffers.splice(offerIndexInFavorites, 1);
+        }
+        if(offerIndexInNearby !== -1) {
+          state.nearbyPlaces[offerIndexInNearby].isFavorite = payload.isFavorite;
+        }
+        if(state.offer && state.offer.id === payload.id) {
+          state.offer.isFavorite = payload.isFavorite;
+        }
         state.isFavoriteStatusPending = false;
       })
       .addCase(changeFavoriteStatusAction.pending, (state) => {
