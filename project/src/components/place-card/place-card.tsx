@@ -13,7 +13,7 @@ type PlaceCardProps = {
 
 function PlaceCard({offer, cardType}: PlaceCardProps): JSX.Element {
   const {isFavorite,isPremium, id, previewImage, title, price, rating, type} = offer;
-  const roomLink = `offer/${id}`;
+  const roomLink = `/offer/${id}`;
   const imgWidth = cardType === 'favorites' ? '150' : '260';
   const imgHeight = cardType === 'favorites' ? '110' : '200';
 
