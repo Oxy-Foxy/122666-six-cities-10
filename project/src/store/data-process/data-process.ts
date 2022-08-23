@@ -4,7 +4,7 @@ import {DataProcess} from '../../types/state';
 import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction, changeFavoriteStatusAction, fetchFavoriteOffers} from '../api-actions';
 
 const initialState: DataProcess = {
-  offers: [],
+  offers: {},
   favoriteOffers:[],
   offer: null,
   nearbyPlaces: [],
@@ -21,14 +21,20 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    getOfferById: (state, {payload}) => {
+      state.offer = state.offers[payload.id];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        state.offers = action.payload;
+        action.payload.forEach((item) => {
+          state.offers[item.id] = item;
+        });
         state.isDataLoading = false;
       })
       .addCase(fetchOfferAction.pending, (state) => {
@@ -59,7 +65,8 @@ export const dataProcess = createSlice({
         state.isReviewSubmitPending = false;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, {payload}) => {
-        const offer = state.offers.filter((item)=> item.id === payload.id)[0];
+        const offers = Object.values(state.offers) || [];
+        const offer = offers.filter((item)=> item.id === payload.id)[0];
         offer.isFavorite = payload.isFavorite;
         const offerIndexInFavorites = state.favoriteOffers.findIndex((item) => item.id === payload.id);
         const offerIndexInNearby = state.nearbyPlaces.findIndex((item) => item.id === payload.id);
@@ -95,3 +102,5 @@ export const dataProcess = createSlice({
       });
   }
 });
+
+export const {getOfferById} = dataProcess.actions;

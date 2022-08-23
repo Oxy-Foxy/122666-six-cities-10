@@ -4,7 +4,7 @@ import {Offers, Offer} from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { createSelector } from 'reselect';
 
-export const getOffers = (state: State): Offers => state[NameSpace.Data].offers;
+export const getOffers = (state: State): Offers => Object.values(state[NameSpace.Data].offers);
 export const getFavoriteOffers = (state: State): Offers => state[NameSpace.Data].favoriteOffers;
 export const getOffer = (state: State): Offer|null => state[NameSpace.Data].offer;
 export const getNearbyPlaces = (state: State): Offers => state[NameSpace.Data].nearbyPlaces;
