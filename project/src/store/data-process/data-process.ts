@@ -17,7 +17,11 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    getOfferById: (state, {payload}) => {
+      state.offer = state.offers.filter((item) => item.id === payload.id)[0];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -50,3 +54,5 @@ export const dataProcess = createSlice({
       });
   }
 });
+
+export const {getOfferById} = dataProcess.actions;
