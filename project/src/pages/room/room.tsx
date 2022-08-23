@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import NotFound from '../not-found/not-found';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import { useParams } from 'react-router-dom';
@@ -43,7 +43,6 @@ function Room(): JSX.Element {
   const reviewsPendingStatus = useAppSelector(getReviewsPendingStatus);
   const nearbyPendingStatus = useAppSelector(getNearbyPendingStatus);
   const dispatch = useAppDispatch();
-  const [selectedPointId, setSelectedPointId] = useState<number|string>();
   const currentCity = useAppSelector(getCurrentCity);
 
   useEffect(()=>{
@@ -78,6 +77,7 @@ function Room(): JSX.Element {
     return (<NotFound />);
   }
 
+  const placesToShowOnMap = [...nearbyPlaces, offer];
   const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description, id} = offer;
   const imagesToRender = images.slice(0, MAX_IMAGES_AMOUNT);
   const formattedRoomType = `${type[0].toUpperCase()}${type.substring(1)}`;
@@ -139,7 +139,7 @@ function Room(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={currentCity} offers={nearbyPlaces} selectedPointId={selectedPointId}/>
+            <Map city={currentCity} offers={placesToShowOnMap} selectedPointId={id}/>
           </section>
         </section>
         <div className="container">
@@ -147,7 +147,7 @@ function Room(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearbyPlaces.map((item) => (
-                <div key={`place-${item.id}`} onMouseOver={() => setSelectedPointId(item.id)}>
+                <div key={`place-${item.id}`}>
                   <PlaceCard cardType={'cities'} offer={item} />
                 </div>
               ))}

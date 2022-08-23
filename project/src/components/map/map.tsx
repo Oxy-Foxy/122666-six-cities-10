@@ -1,12 +1,12 @@
 import {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
-import { Offers } from '../../types/offers';
+import { Offer } from '../../types/offers';
 import {Icon, Marker, LayerGroup} from 'leaflet';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, CITIES} from '../../const';
 import useMap from '../../hooks/map/map';
 
 type MapProps = {
-  offers: Offers;
+  offers: Offer[];
   city: string,
   selectedPointId?: number|string
 };
@@ -27,7 +27,7 @@ function Map({city, offers, selectedPointId}: MapProps):JSX.Element {
   const mapRef = useRef(null);
   const currentCity = CITIES.filter((item) => item.name === city)[0];
   const map = useMap(mapRef, currentCity);
-  const offersToPoints = (items:Offers) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
+  const offersToPoints = (items:Offer[]) => items.map((item)=>({latitude: item.location.latitude,longitude: item.location.longitude, title:item.title}));
   const points = offersToPoints(offers);
   const selectedOffers = offers.filter((offer) => offer.id === selectedPointId);
   const selectedPoint = offersToPoints(selectedOffers)[0];
