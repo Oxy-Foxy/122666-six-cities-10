@@ -5,7 +5,6 @@ import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlac
 
 const initialState: DataProcess = {
   offers: {},
-  offer: null,
   nearbyPlaces: [],
   reviews: [],
   isDataLoading: false,
@@ -17,11 +16,7 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    setOfferById: (state, {payload}) => {
-      state.offer = state.offers[payload.id];
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -36,8 +31,8 @@ export const dataProcess = createSlice({
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOfferLoading = true;
       })
-      .addCase(fetchOfferAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
+      .addCase(fetchOfferAction.fulfilled, (state, {payload}) => {
+        state.offers[payload.id] = payload;
         state.isOfferLoading = false;
       })
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -56,5 +51,3 @@ export const dataProcess = createSlice({
       });
   }
 });
-
-export const {setOfferById} = dataProcess.actions;

@@ -11,7 +11,6 @@ export type UserProcess = {
 export type DataProcess = {
   offers: {[id:string]:Offer},
   nearbyPlaces: Offer[],
-  offer: Offer | null,
   reviews: Reviews,
   isDataLoading: boolean,
   isReviewsPending: boolean,
