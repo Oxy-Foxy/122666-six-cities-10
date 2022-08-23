@@ -4,7 +4,7 @@ import {DataProcess} from '../../types/state';
 import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction} from '../api-actions';
 
 const initialState: DataProcess = {
-  offers: [],
+  offers: {},
   offer: null,
   nearbyPlaces: [],
   reviews: [],
@@ -18,14 +18,20 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    getOfferById: (state, {payload}) => {
+      state.offer = state.offers[payload.id];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        state.offers = action.payload;
+        action.payload.forEach((item) => {
+          state.offers[item.id] = item;
+        });
         state.isDataLoading = false;
       })
       .addCase(fetchOfferAction.pending, (state) => {
@@ -61,3 +67,5 @@ export const dataProcess = createSlice({
       });
   }
 });
+
+export const {getOfferById} = dataProcess.actions;
