@@ -22,7 +22,7 @@ export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    getOfferById: (state, {payload}) => {
+    setOfferById: (state, {payload}) => {
       state.offer = state.offers[payload.id];
     }
   },
@@ -103,4 +103,4 @@ export const dataProcess = createSlice({
   }
 });
 
-export const {getOfferById} = dataProcess.actions;
+export const {setOfferById} = dataProcess.actions;
