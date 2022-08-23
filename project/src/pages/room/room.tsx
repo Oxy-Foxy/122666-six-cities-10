@@ -12,7 +12,7 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
 import LoadingSpinner from '../../components/spinner/spinner';
-import {getOfferById} from '../../store/data-process/data-process';
+import {setOfferById} from '../../store/data-process/data-process';
 
 type ImageItemProps = {
   src: string,
@@ -46,7 +46,7 @@ function Room(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
 
   useEffect(()=>{
-    paramsId && dispatch(getOfferById(paramsId));
+    paramsId && dispatch(setOfferById(paramsId));
   }, [paramsId]);
 
   const offer = useAppSelector(getOffer);
