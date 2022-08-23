@@ -6,7 +6,6 @@ import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlac
 const initialState: DataProcess = {
   offers: {},
   favoriteOffers:[],
-  offer: null,
   nearbyPlaces: [],
   reviews: [],
   isDataLoading: false,
@@ -21,11 +20,7 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    setOfferById: (state, {payload}) => {
-      state.offer = state.offers[payload.id];
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -40,8 +35,8 @@ export const dataProcess = createSlice({
       .addCase(fetchOfferAction.pending, (state) => {
         state.isOfferLoading = true;
       })
-      .addCase(fetchOfferAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
+      .addCase(fetchOfferAction.fulfilled, (state, {payload}) => {
+        state.offers[payload.id] = payload;
         state.isOfferLoading = false;
       })
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -78,9 +73,6 @@ export const dataProcess = createSlice({
         if(offerIndexInNearby !== -1) {
           state.nearbyPlaces[offerIndexInNearby].isFavorite = payload.isFavorite;
         }
-        if(state.offer && state.offer.id === payload.id) {
-          state.offer.isFavorite = payload.isFavorite;
-        }
         state.isFavoriteStatusPending = false;
       })
       .addCase(changeFavoriteStatusAction.pending, (state) => {
@@ -102,5 +94,3 @@ export const dataProcess = createSlice({
       });
   }
 });
-
-export const {setOfferById} = dataProcess.actions;

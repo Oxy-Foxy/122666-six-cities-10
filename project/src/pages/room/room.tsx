@@ -12,7 +12,6 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
 import LoadingSpinner from '../../components/spinner/spinner';
-import {setOfferById} from '../../store/data-process/data-process';
 
 type ImageItemProps = {
   src: string,
@@ -45,11 +44,8 @@ function Room(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector(getCurrentCity);
 
-  useEffect(()=>{
-    paramsId && dispatch(setOfferById(paramsId));
-  }, [paramsId]);
+  const offer = useAppSelector((state) => getOffer(state, paramsId));
 
-  const offer = useAppSelector(getOffer);
   useEffect(() => {
     paramsId && !offer && dispatch(fetchOfferAction(paramsId));
   }, [paramsId, offer]);

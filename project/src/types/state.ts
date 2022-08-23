@@ -14,7 +14,6 @@ export type DataProcess = {
   offers: {[id:string]:Offer},
   nearbyPlaces: Offer[],
   favoriteOffers: Offer[],
-  offer: Offer | null,
   reviews: Reviews,
   isDataLoading: boolean,
   isReviewsPending: boolean,

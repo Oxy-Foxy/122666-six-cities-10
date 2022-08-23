@@ -13,7 +13,7 @@ type PlaceProps = {
 function FavoritePlace({offer}:PlaceProps): JSX.Element {
   const {isFavorite, isPremium, id, title, price, rating, type, previewImage} = offer;
   const [offerIsPremium] = useState(isPremium);
-  const roomLink = `offer/${id}`;
+  const roomLink = `/offer/${id}`;
   return (
     <article className="favorites__card place-card">
       { offerIsPremium && <PremiumStateLabel /> }
