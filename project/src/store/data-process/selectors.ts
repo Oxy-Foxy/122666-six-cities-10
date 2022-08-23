@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 export const getOffers = (state: State): Offers => Object.values(state[NameSpace.Data].offers);
 export const getFavoriteOffers = (state: State): Offers => state[NameSpace.Data].favoriteOffers;
 export const getOffer = (state: State): Offer|null => state[NameSpace.Data].offer;
-export const getNearbyPlaces = (state: State): Offers => state[NameSpace.Data].nearbyPlaces;
+export const getNearbyPlaces = (state: State): Offer[] => state[NameSpace.Data].nearbyPlaces;
 export const getReviews = (state: State): Reviews => state[NameSpace.Data].reviews;
 export const getLoadingStatus = (state: State): boolean => state[NameSpace.Data].isDataLoading;
 export const getReviewsPendingStatus = (state: State): boolean => state[NameSpace.Data].isReviewsPending;

@@ -1,4 +1,4 @@
-import {Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/app-process/app-process';
@@ -6,7 +6,7 @@ import { redirectToRoute } from '../../store/actions';
 import { AppRoute } from '../../const';
 
 type LocationsItemProps = {
-  favoriteOffers: Offers;
+  favoriteOffers: Offer[];
   cityName:string
 }
 
