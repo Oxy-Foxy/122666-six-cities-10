@@ -86,9 +86,9 @@ function ReviewsForm({id}:ReviewsFormProps):JSX.Element {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {radioInputs.map((item) => <RatingInput key={`${item.title}-${item.value}`} title={item.title} value={item.value} checked = {formData.rating === item.value} disabled={reviewsPendingStatus || !isFormAbleToSubmit} fieldChangeHandle={fieldChangeHandle}/>)}
+        {radioInputs.map((item) => <RatingInput key={`${item.title}-${item.value}`} title={item.title} value={item.value} checked = {formData.rating === item.value} disabled={reviewsPendingStatus} fieldChangeHandle={fieldChangeHandle}/>)}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" value={formData.review} placeholder="Tell how was your stay, what you like and what can be improved" disabled={reviewsPendingStatus || !isFormAbleToSubmit} onChange={fieldChangeHandle}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" value={formData.review} placeholder="Tell how was your stay, what you like and what can be improved" disabled={reviewsPendingStatus} onChange={fieldChangeHandle}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
