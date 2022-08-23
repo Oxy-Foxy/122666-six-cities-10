@@ -4,7 +4,7 @@ import {DataProcess} from '../../types/state';
 import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction} from '../api-actions';
 
 const initialState: DataProcess = {
-  offers: [],
+  offers: {},
   offer: null,
   nearbyPlaces: [],
   reviews: [],
@@ -19,7 +19,7 @@ export const dataProcess = createSlice({
   initialState,
   reducers: {
     getOfferById: (state, {payload}) => {
-      state.offer = state.offers.filter((item) => item.id === payload.id)[0];
+      state.offer = state.offers[payload.id];
     }
   },
   extraReducers(builder) {
@@ -28,7 +28,9 @@ export const dataProcess = createSlice({
         state.isDataLoading = true;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
-        state.offers = action.payload;
+        action.payload.forEach((item) => {
+          state.offers[item.id] = item;
+        });
         state.isDataLoading = false;
       })
       .addCase(fetchOfferAction.pending, (state) => {
