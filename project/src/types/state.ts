@@ -1,7 +1,7 @@
 
 import {store} from '../store/index';
 import {AuthorizationStatus} from '../const';
-import { Offers } from './offers';
+import { Offer } from './offers';
 import { Reviews } from './reviews';
 
 export type UserProcess = {
@@ -9,9 +9,13 @@ export type UserProcess = {
 };
 
 export type DataProcess = {
-  offers: Offers,
+  offers: {[id:string]:Offer},
+  nearbyPlaces: Offer[],
   reviews: Reviews,
-  isDataLoading: boolean
+  isDataLoading: boolean,
+  isReviewsPending: boolean,
+  isOfferLoading:boolean,
+  isNearbyPlacesPending:boolean
 }
 
 export type AppProcess = {
