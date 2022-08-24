@@ -1,59 +1,99 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import {submitReviewAction} from '../../store/api-actions';
+import {getReviewSubmitStatus} from '../../store/data-process/selectors';
 
-function ReviewsForm():JSX.Element {
-  const [formData, setFormData] = useState(({
-    rating: '',
-    review: '',
-  }));
+type ReviewsFormProps = {
+  id: number
+}
+
+type RatingInputProps = {
+  title: string,
+  value: string,
+  checked: boolean,
+  disabled: boolean,
+  fieldChangeHandle: (target:ChangeEvent<HTMLInputElement | HTMLTextAreaElement> )=>void
+}
+
+const FORM_DATA_DEFAULT = {
+  rating: null,
+  review: '',
+};
+
+const radioInputs = [
+  {
+    title:'perfect',
+    value:'5'
+  },
+  {
+    title:'good',
+    value:'4'
+  },
+  {
+    title:'not bad',
+    value:'3'
+  },
+  {
+    title:'badly',
+    value:'2'
+  },
+  {
+    title:'terribly',
+    value:'1'
+  },
+];
+
+function RatingInput({title, value, checked, disabled, fieldChangeHandle}: RatingInputProps):JSX.Element {
+  return (
+    <>
+      <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-stars`} type="radio" checked={checked} disabled={disabled} onChange={fieldChangeHandle} />
+      <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
+        <svg className="form__star-image" width="37" height="33">
+          <use xlinkHref="#icon-star"></use>
+        </svg>
+      </label>
+    </>
+  );
+}
+
+function ReviewsForm({id}:ReviewsFormProps):JSX.Element {
+  const reviewsPendingStatus = useAppSelector(getReviewSubmitStatus);
+  const [formData, setFormData] = useState(FORM_DATA_DEFAULT);
   const fieldChangeHandle = ({target}:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = target;
     setFormData({...formData, [name]:value});
   };
+
+  const isFormAbleToSubmit = formData.rating && formData.review.length >= 50 && formData.review.length < 300;
+
+  const dispatch = useAppDispatch();
+  const onSubmit = async () => {
+    const data = await dispatch(submitReviewAction({rating: formData.rating, comment: formData.review, id: Number(id)}));
+    if(!(data.type.includes('rejected'))){
+      setFormData({...formData, ...FORM_DATA_DEFAULT});
+    }
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if(id && isFormAbleToSubmit) {
+      onSubmit();
+    }
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={fieldChangeHandle} />
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onChange={fieldChangeHandle}/>
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={fieldChangeHandle}/>
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onChange={fieldChangeHandle} />
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={fieldChangeHandle} />
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
+        {radioInputs.map((item) => <RatingInput key={`${item.title}-${item.value}`} title={item.title} value={item.value} checked = {formData.rating === item.value} disabled={reviewsPendingStatus} fieldChangeHandle={fieldChangeHandle}/>)}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandle}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" value={formData.review} placeholder="Tell how was your stay, what you like and what can be improved" disabled={reviewsPendingStatus} onChange={fieldChangeHandle}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={reviewsPendingStatus || !isFormAbleToSubmit}>Submit</button>
       </div>
     </form>
   );

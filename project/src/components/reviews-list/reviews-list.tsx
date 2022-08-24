@@ -1,11 +1,18 @@
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewItem from '../../components/reviews-item/reviews-item';
 import { getReviews } from '../../store/data-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
 
-function ReviewsList():JSX.Element {
+type ReviewsListProps = {
+  id: number
+}
+
+function ReviewsList({id}:ReviewsListProps):JSX.Element {
   const MAX_REVIEWS_AMOUNT = 10;
   const reviews = useAppSelector(getReviews);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const reviewsToRender = reviews.slice(0, MAX_REVIEWS_AMOUNT);
 
   return (
@@ -14,7 +21,7 @@ function ReviewsList():JSX.Element {
       <ul className="reviews__list">
         {reviewsToRender.map((item) => <ReviewItem key={item.id} review={item}/>)}
       </ul>
-      <ReviewsForm />
+      {authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm id={id} />}
     </section>
   );
 }

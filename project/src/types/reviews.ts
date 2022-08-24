@@ -8,4 +8,10 @@ export type Review = {
   user: User
 };
 
+export type ReviewData = {
+  id: number,
+  comment:string,
+  rating: number | null
+}
+
 export type Reviews = Review[];

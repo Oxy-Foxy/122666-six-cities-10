@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import NotFound from '../not-found/not-found';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import { useParams } from 'react-router-dom';
@@ -38,43 +38,44 @@ function GoodsItem({good}:GoodsItemProps):JSX.Element {
 
 function Room(): JSX.Element {
   const MAX_IMAGES_AMOUNT = 6;
-  const {id} = useParams();
+  const {id: paramsId} = useParams();
   const reviewsPendingStatus = useAppSelector(getReviewsPendingStatus);
   const nearbyPendingStatus = useAppSelector(getNearbyPendingStatus);
   const dispatch = useAppDispatch();
-  const [selectedPointId, setSelectedPointId] = useState<number|string>();
   const currentCity = useAppSelector(getCurrentCity);
 
-  const offer = useAppSelector((state) => getOffer(state, id));
+  const offer = useAppSelector((state) => getOffer(state, paramsId));
 
   useEffect(() => {
-    id && !offer && dispatch(fetchOfferAction(id));
-  }, [id, offer]);
+    paramsId && !offer && dispatch(fetchOfferAction(paramsId));
+  }, [paramsId, offer]);
 
 
   useEffect(() => {
-    if(id && !reviewsPendingStatus) {
-      dispatch(fetchReviewsAction(id));
+    if(paramsId && !reviewsPendingStatus) {
+      dispatch(fetchReviewsAction(paramsId));
     }
   }, []);
 
   useEffect(() => {
-    if(id && !nearbyPendingStatus) {
-      dispatch(fetchNearbyPlacesAction(id));
+    if(paramsId && !nearbyPendingStatus) {
+      dispatch(fetchNearbyPlacesAction(paramsId));
     }
   }, []);
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
 
-  if(reviewsPendingStatus || nearbyPendingStatus) {
-    return <LoadingSpinner />;
-  }
-
   if(!offer) {
     return (<NotFound />);
   }
 
-  const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+
+  if(reviewsPendingStatus || nearbyPendingStatus) {
+    return <LoadingSpinner />;
+  }
+
+  const placesToShowOnMap = [...nearbyPlaces, offer];
+  const {isFavorite, isPremium, images, title, rating, type, bedrooms, maxAdults, price, goods, host, description, id} = offer;
   const imagesToRender = images.slice(0, MAX_IMAGES_AMOUNT);
   const formattedRoomType = `${type[0].toUpperCase()}${type.substring(1)}`;
 
@@ -131,11 +132,11 @@ function Room(): JSX.Element {
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <ReviewsList />
+              <ReviewsList id={id}/>
             </div>
           </div>
           <section className="property__map map">
-            <Map city={currentCity} offers={nearbyPlaces} selectedPointId={selectedPointId}/>
+            <Map city={currentCity} offers={placesToShowOnMap} selectedPointId={id}/>
           </section>
         </section>
         <div className="container">
@@ -143,7 +144,7 @@ function Room(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearbyPlaces.map((item) => (
-                <div key={`place-${item.id}`} onMouseOver={() => setSelectedPointId(item.id)}>
+                <div key={`place-${item.id}`}>
                   <PlaceCard cardType={'cities'} offer={item} />
                 </div>
               ))}

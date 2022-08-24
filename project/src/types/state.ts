@@ -15,7 +15,8 @@ export type DataProcess = {
   isDataLoading: boolean,
   isReviewsPending: boolean,
   isOfferLoading:boolean,
-  isNearbyPlacesPending:boolean
+  isNearbyPlacesPending:boolean,
+  isReviewSubmitPending: boolean
 }
 
 export type AppProcess = {
