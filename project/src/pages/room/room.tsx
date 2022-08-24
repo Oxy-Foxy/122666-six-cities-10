@@ -65,12 +65,13 @@ function Room(): JSX.Element {
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
 
-  if(reviewsPendingStatus || nearbyPendingStatus) {
-    return <LoadingSpinner />;
-  }
-
   if(!offer) {
     return (<NotFound />);
+  }
+
+
+  if(reviewsPendingStatus || nearbyPendingStatus) {
+    return <LoadingSpinner />;
   }
 
   const placesToShowOnMap = [...nearbyPlaces, offer];
