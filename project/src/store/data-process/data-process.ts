@@ -36,6 +36,9 @@ export const dataProcess = createSlice({
         state.offers[payload.id] = payload;
         state.isOfferLoading = false;
       })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        state.isOfferLoading = false;
+      })
       .addCase(fetchReviewsAction.pending, (state) => {
         state.isReviewsPending = true;
       })
