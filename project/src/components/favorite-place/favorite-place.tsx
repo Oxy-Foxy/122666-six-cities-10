@@ -23,7 +23,7 @@ function FavoritePlace({offer}:PlaceProps): JSX.Element {
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
-        <OfferCardPrice isFavorite={isFavorite} price={price}/>
+        <OfferCardPrice id={id} isFavorite={isFavorite} price={price}/>
         <Rating rating={rating} />
         <OfferCardDescription roomLink={roomLink} title={title} type={type}/>
       </div>

@@ -1,8 +1,12 @@
 import {Link} from 'react-router-dom';
+import { store } from '../../store';
 import LocationsItem from '../../components/locations-item/locations-item';
 import Header from './../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import {getOffers} from '../../store/data-process/selectors';
+import {getFavoriteOffers, getFavoriteOffersStatus} from '../../store/data-process/selectors';
+import {fetchFavoriteOffers} from '../../store/api-actions';
+import LoadingSpinner from '../../components/spinner/spinner';
+import { useEffect } from 'react';
 
 function EmptyMessage():JSX.Element {
   return (
@@ -14,14 +18,22 @@ function EmptyMessage():JSX.Element {
 }
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const favoriteCities = [...new Set(offers.map((offer)=>offer.city.name))];
+  useEffect(()=>{
+    store.dispatch(fetchFavoriteOffers());
+  }, []);
+
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersStatus = useAppSelector(getFavoriteOffersStatus);
+  const favoriteCities = [...new Set(favoriteOffers.map((offer)=>offer.city.name))];
+
+  if(favoriteOffersStatus) {
+    return <LoadingSpinner />;
+  }
 
   return (
-    <div className={`page ${favoriteOffers.length ? '' : 'page--favorites-empty'}`}>
+    <div className={`page${favoriteOffers.length ? '' : ' page--favorites-empty'}`}>
       <Header />
-      <main className={`page__main page__main--favorites ${favoriteOffers.length ? '' : 'page__main--favorites-empty' }`}>
+      <main className={`page__main page__main--favorites${favoriteOffers.length ? '' : ' page__main--favorites-empty' }`}>
         <div className="page__favorites-container container">
           <section className={`favorites ${favoriteOffers.length ? '' : 'favorites--empty'}`}>
             <h1 className={`${favoriteOffers.length ? 'favorites__title' : 'visually-hidden'}`}>{ favoriteOffers.length ? 'Saved listing' : 'Favorites (empty)'}</h1>

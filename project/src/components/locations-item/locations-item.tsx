@@ -1,5 +1,9 @@
 import {Offer} from '../../types/offers';
 import PlaceCard from '../../components/place-card/place-card';
+import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/app-process/app-process';
+import { redirectToRoute } from '../../store/actions';
+import { AppRoute } from '../../const';
 
 type LocationsItemProps = {
   favoriteOffers: Offer[];
@@ -7,14 +11,19 @@ type LocationsItemProps = {
 }
 
 function LocationsItem({favoriteOffers, cityName}:LocationsItemProps):JSX.Element {
+  const dispatch = useAppDispatch();
   const filteredOffers = favoriteOffers.filter((offer)=>offer.city.name === cityName);
+  const cityChangeHandle = (city: string) => {
+    dispatch(changeCity(city));
+    dispatch(redirectToRoute(AppRoute.Root));
+  };
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="/">
+          <button className="locations__item-link" style={{border:'none'}} onClick={() => cityChangeHandle(cityName)}>
             <span>{cityName}</span>
-          </a>
+          </button>
         </div>
       </div>
       <div className="favorites__places">

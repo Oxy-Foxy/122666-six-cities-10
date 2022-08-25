@@ -5,18 +5,23 @@ import { Offer } from './offers';
 import { Reviews } from './reviews';
 
 export type UserProcess = {
-  authorizationStatus: AuthorizationStatus
+  authorizationStatus: AuthorizationStatus;
+  avatarUrl: string;
+  email: string;
 };
 
 export type DataProcess = {
   offers: {[id:string]:Offer},
   nearbyPlaces: Offer[],
+  favoriteOffers: Offer[],
   reviews: Reviews,
   isDataLoading: boolean,
   isReviewsPending: boolean,
   isOfferLoading:boolean,
   isNearbyPlacesPending:boolean,
-  isReviewSubmitPending: boolean
+  isReviewSubmitPending: boolean,
+  isFavoriteStatusPending: boolean,
+  isFavoriteOffersPending: boolean
 }
 
 export type AppProcess = {

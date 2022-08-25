@@ -4,7 +4,8 @@ import { AuthorizationStatus, AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus, getUserAvatar, getUserEmail } from '../../store/user-process/selectors';
+import { getFilteredFavoriteOffers } from '../../store/data-process/selectors';
 
 type HeaderProps = {
   showNav?: boolean
@@ -12,15 +13,19 @@ type HeaderProps = {
 
 const HeaderUser = ():JSX.Element => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getUserEmail);
+  const userAvatar = useAppSelector(getUserAvatar);
+  const favoriteOffers = useAppSelector(getFilteredFavoriteOffers);
   const dispatch = useAppDispatch();
   return authorizationStatus === AuthorizationStatus.Auth ? (
     <>
       <li className="header__nav-item user">
         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-          <div className="header__avatar-wrapper user__avatar-wrapper">
+          <div className="header__avatar-wrapper user__avatar-wrapper" style={{overflow:'hidden', borderRadius:'50%'}}>
+            <img src={userAvatar} alt="" />
           </div>
-          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-          <span className="header__favorite-count">3</span>
+          <span className="header__user-name user__name">{userEmail}</span>
+          <span className="header__favorite-count">{favoriteOffers.length}</span>
         </Link>
       </li>
       <li className="header__nav-item">

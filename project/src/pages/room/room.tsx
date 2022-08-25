@@ -95,7 +95,7 @@ function Room(): JSX.Element {
               { isPremium && <PremiumStateLabel className='property__mark'/> }
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <BookmarkButton offerIsFavorite={isFavorite} classPrefix={'property'} iconWidth={'31'} iconHeight={'33'}/>
+                <BookmarkButton offerId={id} offerIsFavorite={isFavorite} classPrefix={'property'} iconWidth={'31'} iconHeight={'33'}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
