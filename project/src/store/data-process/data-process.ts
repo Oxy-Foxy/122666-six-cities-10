@@ -20,11 +20,7 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    clearFavoriteOffers: (state)=>{
-      state.favoriteOffers = [];
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
