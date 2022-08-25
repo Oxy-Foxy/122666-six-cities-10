@@ -19,7 +19,11 @@ function EmptyMessage():JSX.Element {
 
 function Favorites(): JSX.Element {
   useEffect(()=>{
-    store.dispatch(fetchFavoriteOffers());
+    let needToUpdate = true;
+    needToUpdate && store.dispatch(fetchFavoriteOffers());
+    return ()=> {
+      needToUpdate = false;
+    };
   }, []);
 
   const favoriteOffers = useAppSelector(getFavoriteOffers);

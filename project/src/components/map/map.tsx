@@ -34,7 +34,8 @@ function Map({city, offers, selectedPointId}: MapProps):JSX.Element {
 
   useEffect(() => {
     const markers = new LayerGroup();
-    if (map) {
+    let needToUpdate = true;
+    if (needToUpdate && map) {
       points.forEach((point) => {
         const pointIsSelected = selectedPoint !== undefined && point.latitude === selectedPoint.latitude && point.longitude === selectedPoint.longitude;
         const marker = new Marker({
@@ -54,13 +55,18 @@ function Map({city, offers, selectedPointId}: MapProps):JSX.Element {
     }
     return ()=> {
       markers.clearLayers();
+      needToUpdate = false;
     };
   }, [map, points, selectedPoint]);
 
   useEffect(() => {
-    if(map){
+    let needToUpdate = true;
+    if(needToUpdate && map){
       map.flyTo([currentCity.location.latitude, currentCity.location.longitude]);
     }
+    return ()=> {
+      needToUpdate = false;
+    };
   }, [map, currentCity]);
 
 

@@ -48,20 +48,32 @@ function Room(): JSX.Element {
   const offer = useAppSelector((state) => getOffer(state, paramsId));
 
   useEffect(() => {
-    paramsId && !offer && dispatch(fetchOfferAction(paramsId));
+    let needToUpdate = true;
+    needToUpdate && paramsId && !offer && dispatch(fetchOfferAction(paramsId));
+    return ()=> {
+      needToUpdate = false;
+    };
   }, [paramsId, offer]);
 
 
   useEffect(() => {
-    if(paramsId && !reviewsPendingStatus) {
+    let needToUpdate = true;
+    if(needToUpdate && paramsId && !reviewsPendingStatus) {
       dispatch(fetchReviewsAction(paramsId));
     }
+    return ()=> {
+      needToUpdate = false;
+    };
   }, []);
 
   useEffect(() => {
-    if(paramsId && !nearbyPendingStatus) {
+    let needToUpdate = true;
+    if(needToUpdate && paramsId && !nearbyPendingStatus) {
       dispatch(fetchNearbyPlacesAction(paramsId));
     }
+    return ()=> {
+      needToUpdate = false;
+    };
   }, []);
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
