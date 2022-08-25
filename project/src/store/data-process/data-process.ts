@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 import {DataProcess} from '../../types/state';
-import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction, changeFavoriteStatusAction, fetchFavoriteOffers} from '../api-actions';
+import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction, changeFavoriteStatusAction, fetchFavoriteOffers, logoutAction} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: {},
@@ -20,7 +20,11 @@ const initialState: DataProcess = {
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    clearFavoriteOffers: (state)=>{
+      state.favoriteOffers = [];
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -94,6 +98,16 @@ export const dataProcess = createSlice({
       .addCase(fetchNearbyPlacesAction.fulfilled, (state, action) => {
         state.nearbyPlaces = action.payload;
         state.isNearbyPlacesPending = false;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favoriteOffers = [];
+        for (const key in state.offers) {
+          state.offers[key].isFavorite = false;
+        }
+        for (const key in state.nearbyPlaces) {
+          state.nearbyPlaces[key].isFavorite = false;
+        }
       });
   }
 });
+
