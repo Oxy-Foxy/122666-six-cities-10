@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {Offer} from '../../types/offers';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offers';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import OfferCardPrice from '../../components/offer-card-price/offer-card-price';
 import Rating from '../../components/rating/rating';

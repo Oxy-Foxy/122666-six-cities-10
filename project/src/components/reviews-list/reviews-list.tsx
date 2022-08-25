@@ -1,9 +1,9 @@
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/data-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import ReviewItem from '../../components/reviews-item/reviews-item';
-import { getReviews } from '../../store/data-process/selectors';
-import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus } from '../../const';
 
 type ReviewsListProps = {
   id: number

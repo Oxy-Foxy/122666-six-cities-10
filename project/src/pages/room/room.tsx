@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { fetchReviewsAction, fetchOfferAction, fetchNearbyPlacesAction } from '../../store/api-actions';
+import { getOffer, getReviewsPendingStatus, getNearbyPendingStatus, getNearbyPlaces } from '../../store/data-process/selectors';
+import { getCurrentCity } from '../../store/app-process/selectors';
 import NotFound from '../not-found/not-found';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
-import { useParams } from 'react-router-dom';
 import Header from './../../components/header/header';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import {fetchReviewsAction, fetchOfferAction, fetchNearbyPlacesAction} from '../../store/api-actions';
-import {getOffer, getReviewsPendingStatus, getNearbyPendingStatus, getNearbyPlaces} from '../../store/data-process/selectors';
-import {getCurrentCity} from '../../store/app-process/selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';

@@ -1,11 +1,11 @@
-import Header from './../../components/header/header';
-import {useRef, FormEvent} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/auth-data';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {Link, Navigate} from 'react-router-dom';
+import { useRef, FormEvent } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthData } from '../../types/auth-data';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import Header from './../../components/header/header';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { SortTypes } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import {sortTypes} from '../../const';
-import {changeSortType} from '../../store/app-process/app-process';
-import {getSortType} from '../../store/app-process/selectors';
+import { changeSortType } from '../../store/app-process/app-process';
+import { getSortType } from '../../store/app-process/selectors';
 
 
 function SortBy():JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const sortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
-  const types = Object.values(sortTypes);
+  const types = Object.values(SortTypes);
 
   const sortTypeChangeHandle = (type: string) => {
     dispatch(changeSortType(type));

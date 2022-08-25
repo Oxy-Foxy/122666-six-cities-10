@@ -1,6 +1,6 @@
 
-import {store} from '../store/index';
-import {AuthorizationStatus} from '../const';
+import { store } from '../store/index';
+import { AuthorizationStatus } from '../const';
 import { Offer } from './offers';
 import { Reviews } from './reviews';
 

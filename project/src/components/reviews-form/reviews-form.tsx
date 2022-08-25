@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import {useAppSelector, useAppDispatch} from '../../hooks';
-import {submitReviewAction} from '../../store/api-actions';
-import {getReviewSubmitStatus} from '../../store/data-process/selectors';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { submitReviewAction } from '../../store/api-actions';
+import { getReviewSubmitStatus } from '../../store/data-process/selectors';
 
 type ReviewsFormProps = {
   id: number

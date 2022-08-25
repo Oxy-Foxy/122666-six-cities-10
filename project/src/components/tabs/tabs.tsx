@@ -1,8 +1,8 @@
-import CityTab from '../../components/city-tab/city-tab';
-import {CITIES} from '../../const';
+import { CITIES } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/app-process/app-process';
-import {getCurrentCity} from '../../store/app-process/selectors';
+import { getCurrentCity } from '../../store/app-process/selectors';
+import CityTab from '../../components/city-tab/city-tab';
 
 function Tabs():JSX.Element {
   const city = useAppSelector(getCurrentCity);

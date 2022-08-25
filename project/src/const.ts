@@ -21,7 +21,7 @@ export enum APIRoute {
   Favorite = '/favorite'
 }
 
-export enum sortTypes {
+export enum SortTypes {
   Popular = 'Popular',
   LowToHight = 'Price: low to high',
   HighToLow = 'Price: high to low',

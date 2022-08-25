@@ -1,9 +1,9 @@
 import {useRef, useEffect} from 'react';
-import 'leaflet/dist/leaflet.css';
-import { Offer } from '../../types/offers';
 import {Icon, Marker, LayerGroup} from 'leaflet';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, CITIES} from '../../const';
+import 'leaflet/dist/leaflet.css';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT, CITIES } from '../../const';
 import useMap from '../../hooks/map/map';
+import { Offer } from '../../types/offers';
 
 type MapProps = {
   offers: Offer[];

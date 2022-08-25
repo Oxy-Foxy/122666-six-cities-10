@@ -1,9 +1,8 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus, AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAppSelector, useAppDispatch} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
 import { getAuthorizationStatus, getUserAvatar, getUserEmail } from '../../store/user-process/selectors';
 import { getFilteredFavoriteOffers } from '../../store/data-process/selectors';
 

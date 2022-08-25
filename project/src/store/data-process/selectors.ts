@@ -1,8 +1,8 @@
-import {NameSpace} from '../../const';
-import {State} from '../../types/state';
-import {Offers, Offer} from '../../types/offers';
-import { Reviews } from '../../types/reviews';
 import { createSelector } from 'reselect';
+import { NameSpace } from '../../const';
+import { State } from '../../types/state';
+import { Offers, Offer } from '../../types/offers';
+import { Reviews } from '../../types/reviews';
 
 export const getOffers = (state: State): Offers => Object.values(state[NameSpace.Data].offers);
 export const getFavoriteOffers = (state: State): Offers => state[NameSpace.Data].favoriteOffers;

@@ -1,6 +1,6 @@
-import {memo} from 'react';
+import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offers';
-import {Link} from 'react-router-dom';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
 import Rating from '../../components/rating/rating';
 import OfferCardPrice from '../../components/offer-card-price/offer-card-price';

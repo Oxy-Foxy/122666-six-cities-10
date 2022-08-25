@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type OfferCardDescriptionProps = {roomLink: string, title: string, type: string}
 

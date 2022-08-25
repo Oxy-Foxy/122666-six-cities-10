@@ -29,4 +29,5 @@ export type Offer = {
   images: string[],
   location: Location,
 }
+
 export type Offers = Offer[];
