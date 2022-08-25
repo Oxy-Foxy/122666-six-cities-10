@@ -12,6 +12,7 @@ import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
 import LoadingSpinner from '../../components/spinner/spinner';
+import Rating from '../../components/rating/rating';
 
 type ImageItemProps = {
   src: string,
@@ -97,13 +98,7 @@ function Room(): JSX.Element {
                 <h1 className="property__name">{title}</h1>
                 <BookmarkButton offerId={id} offerIsFavorite={isFavorite} classPrefix={'property'} iconWidth={'31'} iconHeight={'33'}/>
               </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: `${rating * 20}%`}}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{rating}</span>
-              </div>
+              <Rating rating={rating} classPrefix={'property'} showValue/>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">{formattedRoomType}</li>
                 <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
