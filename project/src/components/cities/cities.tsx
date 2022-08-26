@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getCurrentCity, getSortedOffers } from '../../store/app-process/selectors';
 import Map from '../../components/map/map';
 import CitiesEmpty from '../../components/cities-empty/cities-empty';
-import { useAppSelector } from '../../hooks';
 import SortBy from '../../components/sort-by/sort-by';
-import {getCurrentCity, getSortedOffers} from '../../store/app-process/selectors';
 import PlaceCard from '../place-card/place-card';
 
 function Cities():JSX.Element {

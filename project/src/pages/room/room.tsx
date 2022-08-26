@@ -1,17 +1,18 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { fetchReviewsAction, fetchOfferAction, fetchNearbyPlacesAction } from '../../store/api-actions';
+import { getOffer, getReviewsPendingStatus, getNearbyPendingStatus, getNearbyPlaces } from '../../store/data-process/selectors';
+import { getCurrentCity } from '../../store/app-process/selectors';
 import NotFound from '../not-found/not-found';
 import PremiumStateLabel from '../../components/premium-state-label/premium-state-label';
-import { useParams } from 'react-router-dom';
 import Header from './../../components/header/header';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import {fetchReviewsAction, fetchOfferAction, fetchNearbyPlacesAction} from '../../store/api-actions';
-import {getOffer, getReviewsPendingStatus, getNearbyPendingStatus, getNearbyPlaces} from '../../store/data-process/selectors';
-import {getCurrentCity} from '../../store/app-process/selectors';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PlaceCard from '../../components/place-card/place-card';
 import Map from '../../components/map/map';
 import LoadingSpinner from '../../components/spinner/spinner';
+import Rating from '../../components/rating/rating';
 
 type ImageItemProps = {
   src: string,
@@ -20,6 +21,10 @@ type ImageItemProps = {
 
 type GoodsItemProps = {
   good: string
+}
+
+function nearbyPlaceClickHandle() {
+  window.scrollTo(0,0);
 }
 
 function ImageItem({src, alt}:ImageItemProps):JSX.Element {
@@ -47,21 +52,33 @@ function Room(): JSX.Element {
   const offer = useAppSelector((state) => getOffer(state, paramsId));
 
   useEffect(() => {
-    paramsId && !offer && dispatch(fetchOfferAction(paramsId));
+    let needToUpdate = true;
+    needToUpdate && paramsId && !offer && dispatch(fetchOfferAction(paramsId));
+    return ()=> {
+      needToUpdate = false;
+    };
   }, [paramsId, offer]);
 
 
   useEffect(() => {
-    if(paramsId && !reviewsPendingStatus) {
+    let needToUpdate = true;
+    if(needToUpdate && paramsId && !reviewsPendingStatus) {
       dispatch(fetchReviewsAction(paramsId));
     }
-  }, []);
+    return ()=> {
+      needToUpdate = false;
+    };
+  }, [offer]);
 
   useEffect(() => {
-    if(paramsId && !nearbyPendingStatus) {
+    let needToUpdate = true;
+    if(needToUpdate && paramsId && !nearbyPendingStatus) {
       dispatch(fetchNearbyPlacesAction(paramsId));
     }
-  }, []);
+    return ()=> {
+      needToUpdate = false;
+    };
+  }, [offer]);
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
 
@@ -97,13 +114,7 @@ function Room(): JSX.Element {
                 <h1 className="property__name">{title}</h1>
                 <BookmarkButton offerId={id} offerIsFavorite={isFavorite} classPrefix={'property'} iconWidth={'31'} iconHeight={'33'}/>
               </div>
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{width: `${rating * 20}%`}}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{rating}</span>
-              </div>
+              <Rating rating={rating} classPrefix={'property'} showValue/>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">{formattedRoomType}</li>
                 <li className="property__feature property__feature--bedrooms">{bedrooms} Bedrooms</li>
@@ -144,7 +155,7 @@ function Room(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearbyPlaces.map((item) => (
-                <div key={`place-${item.id}`}>
+                <div key={`place-${item.id}`} onClick={() => nearbyPlaceClickHandle()}>
                   <PlaceCard cardType={'cities'} offer={item} />
                 </div>
               ))}

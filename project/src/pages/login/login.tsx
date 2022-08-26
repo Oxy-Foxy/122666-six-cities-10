@@ -1,14 +1,16 @@
+import { useRef, FormEvent } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthData } from '../../types/auth-data';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Header from './../../components/header/header';
-import {useRef, FormEvent} from 'react';
-import {useAppDispatch} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
-import {AuthData} from '../../types/auth-data';
-import {AppRoute} from '../../const';
-import {Link} from 'react-router-dom';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
 
@@ -26,6 +28,11 @@ function Login(): JSX.Element {
       });
     }
   };
+
+  if(authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Root}/>;
+  }
+
   return (
     <div className="page page--gray page--login">
       <Header showNav={false}/>

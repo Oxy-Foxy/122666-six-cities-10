@@ -1,6 +1,5 @@
-import {NameSpace} from '../../const';
-import {State} from '../../types/state';
-import {AuthorizationStatus} from '../../const';
+import { NameSpace, AuthorizationStatus } from '../../const';
+import { State } from '../../types/state';
 
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 export const getUserAvatar = (state: State): string => state[NameSpace.User].avatarUrl;

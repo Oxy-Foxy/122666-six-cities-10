@@ -1,7 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace} from '../../const';
-import {DataProcess} from '../../types/state';
-import {fetchOffersAction, fetchOfferAction, fetchReviewsAction, fetchNearbyPlacesAction, submitReviewAction, changeFavoriteStatusAction, fetchFavoriteOffers, logoutAction} from '../api-actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { DataProcess } from '../../types/state';
+import {
+  fetchOffersAction,
+  fetchOfferAction,
+  fetchReviewsAction,
+  fetchNearbyPlacesAction,
+  submitReviewAction,
+  changeFavoriteStatusAction,
+  fetchFavoriteOffers,
+  logoutAction
+} from '../api-actions';
 
 const initialState: DataProcess = {
   offers: {},

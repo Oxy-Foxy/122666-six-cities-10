@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getLoadingStatus } from '../../store/data-process/selectors';
 import Layout from '../layout/layout';
 import MainPage from '../../pages/main-page/main-page';
 import Favorites from '../../pages/favorites/favorites';
@@ -8,10 +10,8 @@ import Login from '../../pages/login/login';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import LoadingSpinner from '../spinner/spinner';
-import { useAppSelector } from '../../hooks';
 import HistoryRouter from './../histoty-route/history-route';
 import browserHistory from '../../browser-history';
-import { getLoadingStatus } from '../../store/data-process/selectors';
 
 
 function App(): JSX.Element {

@@ -1,4 +1,5 @@
 import { Review } from '../../types/reviews';
+import Rating from '../../components/rating/rating';
 
 type ReviewItemProps = {
   review: Review;
@@ -19,12 +20,7 @@ function ReviewItem({review}:ReviewItemProps): JSX.Element {
         <span className="reviews__user-name">{userName}</span>
       </div>
       <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{width: `${rating * 20}%`}}></span>
-            <span className="visually-hidden">{rating}</span>
-          </div>
-        </div>
+        <Rating rating={rating} classPrefix={'reviews'} />
         <p className="reviews__text">{comment}</p>
         <time className="reviews__time" dateTime={dateTime}>{humanizedDate}</time>
       </div>

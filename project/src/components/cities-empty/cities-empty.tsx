@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import {getCurrentCity} from '../../store/app-process/selectors';
+import { getCurrentCity } from '../../store/app-process/selectors';
 
 
 function CitiesEmpty(): JSX.Element {

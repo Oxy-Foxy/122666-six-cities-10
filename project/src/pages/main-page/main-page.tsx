@@ -1,8 +1,8 @@
+import { useAppSelector } from '../../hooks';
+import { getSortedOffers } from '../../store/app-process/selectors';
 import Header from './../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import Cities from '../../components/cities/cities';
-import { useAppSelector } from '../../hooks';
-import {getSortedOffers} from '../../store/app-process/selectors';
 
 function MainPage(): JSX.Element {
   const offers = useAppSelector(getSortedOffers);

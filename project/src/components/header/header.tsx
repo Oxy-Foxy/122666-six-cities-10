@@ -1,9 +1,8 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus, AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAppSelector, useAppDispatch} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
 import { getAuthorizationStatus, getUserAvatar, getUserEmail } from '../../store/user-process/selectors';
 import { getFilteredFavoriteOffers } from '../../store/data-process/selectors';
 
@@ -55,9 +54,9 @@ const Header = ({showNav = true}:HeaderProps):JSX.Element => (
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
-          <a className="header__logo-link header__logo-link--active" href="/">
+          <Link className="header__logo-link header__logo-link--active" to={AppRoute.Root}>
             <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-          </a>
+          </Link>
         </div>
         { showNav ? (
           <nav className="header__nav">

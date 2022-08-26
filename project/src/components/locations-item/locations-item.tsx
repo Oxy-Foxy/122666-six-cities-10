@@ -1,9 +1,9 @@
-import {Offer} from '../../types/offers';
-import PlaceCard from '../../components/place-card/place-card';
 import { useAppDispatch } from '../../hooks';
+import { AppRoute } from '../../const';
 import { changeCity } from '../../store/app-process/app-process';
 import { redirectToRoute } from '../../store/actions';
-import { AppRoute } from '../../const';
+import { Offer } from '../../types/offers';
+import PlaceCard from '../../components/place-card/place-card';
 
 type LocationsItemProps = {
   favoriteOffers: Offer[];

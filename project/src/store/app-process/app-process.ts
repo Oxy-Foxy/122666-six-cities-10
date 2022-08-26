@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {NameSpace, INITIAL_CITY, INITIAL_SORT_TYPE} from '../../const';
-import {AppProcess} from '../../types/state';
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace, INITIAL_CITY, INITIAL_SORT_TYPE } from '../../const';
+import { AppProcess } from '../../types/state';
 
 const initialState:AppProcess = {
   city: INITIAL_CITY,

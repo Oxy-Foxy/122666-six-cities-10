@@ -1,12 +1,12 @@
-import {Link} from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
+import { getFavoriteOffers, getFavoriteOffersStatus } from '../../store/data-process/selectors';
+import { fetchFavoriteOffers } from '../../store/api-actions';
 import LocationsItem from '../../components/locations-item/locations-item';
 import Header from './../../components/header/header';
-import { useAppSelector } from '../../hooks';
-import {getFavoriteOffers, getFavoriteOffersStatus} from '../../store/data-process/selectors';
-import {fetchFavoriteOffers} from '../../store/api-actions';
 import LoadingSpinner from '../../components/spinner/spinner';
-import { useEffect } from 'react';
 
 function EmptyMessage():JSX.Element {
   return (
@@ -19,7 +19,11 @@ function EmptyMessage():JSX.Element {
 
 function Favorites(): JSX.Element {
   useEffect(()=>{
-    store.dispatch(fetchFavoriteOffers());
+    let needToUpdate = true;
+    needToUpdate && store.dispatch(fetchFavoriteOffers());
+    return ()=> {
+      needToUpdate = false;
+    };
   }, []);
 
   const favoriteOffers = useAppSelector(getFavoriteOffers);

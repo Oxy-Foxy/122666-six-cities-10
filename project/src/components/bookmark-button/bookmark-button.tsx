@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import {changeFavoriteStatusAction} from '../../store/api-actions';
+import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { redirectToRoute } from '../../store/actions';
 

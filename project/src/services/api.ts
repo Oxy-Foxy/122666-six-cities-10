@@ -1,8 +1,8 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import {toast} from 'react-toastify';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
-import {APIRoute, BASE_URL, TIMEOUT} from '../const';
-import {StatusCodes} from 'http-status-codes';
+import { APIRoute, BASE_URL, TIMEOUT } from '../const';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,

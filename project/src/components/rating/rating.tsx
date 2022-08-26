@@ -1,14 +1,17 @@
 type RatingProps = {
-  rating: number
+  rating: number,
+  classPrefix?: string,
+  showValue?: boolean
 }
 
-function Rating({rating}:RatingProps):JSX.Element {
+function Rating({rating, classPrefix = 'place-card', showValue = false}:RatingProps):JSX.Element {
   return (
-    <div className="place-card__rating rating">
-      <div className="place-card__stars rating__stars">
-        <span style={{width: `${rating * 20}%`}}></span>
+    <div className={`${classPrefix}__rating rating`}>
+      <div className={`${classPrefix}__stars rating__stars`}>
+        <span style={{width: `${Math.round(rating) * 20}%`}}></span>
         <span className="visually-hidden">Rating</span>
       </div>
+      {showValue && <span className={`${classPrefix}__rating-value rating__value`}>{Math.round(rating)}</span>}
     </div>
   );
 }

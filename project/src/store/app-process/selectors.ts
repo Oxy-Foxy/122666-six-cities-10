@@ -1,8 +1,7 @@
-import {NameSpace} from '../../const';
-import {State} from '../../types/state';
-import {sortTypes} from '../../const';
-import {getOffers} from '../data-process/selectors';
 import { createSelector } from 'reselect';
+import { NameSpace, SortTypes } from '../../const';
+import { State } from '../../types/state';
+import { getOffers } from '../data-process/selectors';
 
 export const getCurrentCity = (state: State): string => state[NameSpace.App].city;
 export const getSortType = (state: State): string => state[NameSpace.App].sortType;
@@ -17,13 +16,13 @@ export const getSortedOffers = createSelector(
   (offers, sortType) => {
     const filteredOffers = [...offers];
     switch (sortType) {
-      case sortTypes.Popular:
+      case SortTypes.Popular:
         return offers;
-      case sortTypes.LowToHight:
+      case SortTypes.LowToHight:
         return filteredOffers.sort((a,b) => a.price - b.price);
-      case sortTypes.HighToLow:
+      case SortTypes.HighToLow:
         return filteredOffers.sort((a,b) => b.price - a.price);
-      case sortTypes.TopRated:
+      case SortTypes.TopRated:
         return filteredOffers.sort((a,b) => b.rating - a.rating);
       default:
         return offers;

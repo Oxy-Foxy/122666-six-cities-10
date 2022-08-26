@@ -1,14 +1,14 @@
-import {AxiosInstance} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
-import { Offers,Offer } from '../types/offers.js';
+import { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { redirectToRoute } from './actions';
 import { APIRoute, AppRoute } from '../const';
-import {saveToken, dropToken} from '../services/token';
-import {AuthData} from '../types/auth-data';
-import {FavoriteData} from '../types/favorite-data';
-import {UserData} from '../types/user-data';
-import {Reviews, ReviewData} from '../types/reviews';
+import { saveToken, dropToken } from '../services/token';
+import { Offers,Offer } from '../types/offers.js';
+import { AppDispatch, State } from '../types/state.js';
+import { AuthData } from '../types/auth-data';
+import { FavoriteData } from '../types/favorite-data';
+import { UserData } from '../types/user-data';
+import { Reviews, ReviewData } from '../types/reviews';
 
 type ThunkType = {
   dispatch: AppDispatch,
