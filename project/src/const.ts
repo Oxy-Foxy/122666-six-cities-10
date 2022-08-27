@@ -99,3 +99,6 @@ export const CITIES:City[] = [
     name: 'Dusseldorf'
   }
 ];
+
+export const PASSWORD_PATTERN = /([A-Z])+([0-9])+/i;
+export const PASSWORD_ERROR_TEXT = 'Password should include minimum 1 letter and 1 digit';

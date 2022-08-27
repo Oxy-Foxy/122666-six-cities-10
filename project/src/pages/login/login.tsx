@@ -1,10 +1,11 @@
 import { useRef, FormEvent } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, PASSWORD_PATTERN, PASSWORD_ERROR_TEXT } from '../../const';
 import Header from './../../components/header/header';
 
 function Login(): JSX.Element {
@@ -15,6 +16,10 @@ function Login(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {
+    if(!PASSWORD_PATTERN.test(authData.password)) {
+      toast.warn(PASSWORD_ERROR_TEXT);
+      return;
+    }
     dispatch(loginAction(authData));
   };
 
