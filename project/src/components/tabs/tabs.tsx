@@ -15,7 +15,7 @@ function Tabs():JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
-      {citiesNames.map((cityName)=><CityTab key={cityName} cityName={cityName} activeCity={city} onCityChange={cityChangeHandle}/>)}
+      {citiesNames.map((cityName)=><CityTab key={cityName} cityName={cityName} activeCity={city} cityChangeHandle={cityChangeHandle}/>)}
     </ul>
   );
 }

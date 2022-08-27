@@ -23,10 +23,6 @@ type GoodsItemProps = {
   good: string
 }
 
-function nearbyPlaceClickHandle() {
-  window.scrollTo(0,0);
-}
-
 function ImageItem({src, alt}:ImageItemProps):JSX.Element {
   return(
     <div className="property__image-wrapper">
@@ -68,7 +64,7 @@ function Room(): JSX.Element {
     return ()=> {
       needToUpdate = false;
     };
-  }, [offer]);
+  }, [paramsId]);
 
   useEffect(() => {
     let needToUpdate = true;
@@ -78,7 +74,7 @@ function Room(): JSX.Element {
     return ()=> {
       needToUpdate = false;
     };
-  }, [offer]);
+  }, [paramsId]);
 
   const nearbyPlaces = useAppSelector(getNearbyPlaces);
 
@@ -155,7 +151,7 @@ function Room(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearbyPlaces.map((item) => (
-                <div key={`place-${item.id}`} onClick={() => nearbyPlaceClickHandle()}>
+                <div key={`place-${item.id}`} onClick={() => window.scrollTo(0,0)}>
                   <PlaceCard cardType={'cities'} offer={item} />
                 </div>
               ))}

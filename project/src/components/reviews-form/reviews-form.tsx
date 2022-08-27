@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { submitReviewAction } from '../../store/api-actions';
 import { getReviewSubmitStatus } from '../../store/data-process/selectors';
@@ -64,7 +65,7 @@ function ReviewsForm({id}:ReviewsFormProps):JSX.Element {
     setFormData({...formData, [name]:value});
   };
 
-  const isFormAbleToSubmit = formData.rating && formData.review.length >= 50 && formData.review.length < 300;
+  const isFormAbleToSubmit = formData.rating && formData.review.length >= MIN_REVIEW_LENGTH && formData.review.length < MAX_REVIEW_LENGTH;
 
   const dispatch = useAppDispatch();
   const onSubmit = async () => {

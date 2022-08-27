@@ -102,3 +102,7 @@ export const CITIES:City[] = [
 
 export const PASSWORD_PATTERN = /([A-Z])+([0-9])+/i;
 export const PASSWORD_ERROR_TEXT = 'Password should include minimum 1 letter and 1 digit';
+
+export const RATING_INDEX = 20;
+export const MIN_REVIEW_LENGTH = 50;
+export const MAX_REVIEW_LENGTH = 300;
